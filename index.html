@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inicio · La Chocolatería</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head>
+<body data-page="index">
+<!-- PORTADA: el video avanza con el scroll y cuenta cómo se sirve el chocolate -->
+<header id="hero"><div class="pin">
+<div class="vwrap"><video id="vid" src="video-taza.mp4" poster="imagenes/frame-poster.jpg" muted playsinline preload="auto"></video></div><div class="vign"></div>
+<div class="chap c0"><h1 data-split>Cacao de verdad</h1><p>Granos tostados despacio y molidos a mano, cada mañana.</p></div>
+<div class="chap c1"><h1>Fundido sin prisa</h1><p>Una olla de cobre, fuego bajo y paciencia. Así sale un chocolate que abraza.</p></div>
+<div class="chap c2"><h1>Servido para ti</h1><p>Caliente, espeso y con crema. Pasa por una taza o reserva tu mesa.</p>
+<div class="btns"><a class="btn fr mag" href="menu.html">Ver el menú</a><a class="btn mag" href="contacto.html">Reservar mesa</a></div></div>
+<div class="hint"><span>Desliza para servir</span><i></i></div><div class="bar"></div>
+</div></header>
+<div class="mq"><span>Chocolate caliente</span><span>•</span><span>Brownies tibios</span><span>•</span><span>Croissants rellenos</span><span>•</span><span>Fresas bañadas</span><span>•</span><span>Cacao boliviano</span><span>•</span></div>
+<!-- FAVORITOS: imágenes cafe-1, cafe-2, cafe-3 -->
+<section class="sec split"><div class="col"><div class="ph c1" ><img src="imagenes/cafe-1.jpg" data-fb="frame-taza" alt="Chocolate caliente"></div><div class="ph c2" ><img src="imagenes/cafe-2.jpg" data-fb="frame-vertido" alt="Brownie"></div><div class="ph c3" ><img src="imagenes/cafe-3.jpg" data-fb="frame-taza" alt="Croissant"></div></div>
+<div><h2 data-s>Los favoritos de la casa</h2><p class="lead" data-r>Un chocolate espeso que se sirve en taza de porcelana, un brownie que llega tibio y un croissant con el corazón de cacao fundido.</p><a href="menu.html" class="btn mag">Ver todo el menú</a></div></section>
+<!-- EL LOCAL: imagen fondo-1 -->
+<section class="full"><div class="ph " ><img src="imagenes/fondo-1.jpg" data-fb="frame-mesa" alt=""></div><div class="tx"><h2 data-s>Un rincón para quedarse</h2><p class="lead" data-r>Madera oscura, luz tibia y el aroma del cacao recién fundido. Ven a conocer el lugar donde la tarde se hace más larga.</p><a href="local.html" class="btn fr mag" style="margin-top:30px">Conocer el local</a></div></section>
+<!-- RAZONES -->
+<section class="sec split rev"><div><h2 data-s>Hecho a mano, sin atajos</h2><p class="lead" data-r>Cada receta se prepara al momento, con ingredientes que conocemos por su nombre y su origen.</p>
+<div class="vals" style="grid-template-columns:1fr"><div class="val" data-r><h3>Cacao de origen</h3><p>Seleccionado de pequeños productores bolivianos.</p></div><div class="val" data-r><h3>Receta de familia</h3><p>La misma olla de cobre desde el primer día.</p></div></div></div><div class="ph " style="aspect-ratio:4/5"><img src="imagenes/cafe-4.jpg" data-fb="frame-vertido" alt="Fresas con chocolate"></div></section><section class="cta"><h2 data-s>Tu taza te está esperando</h2><a href="contacto.html" class="btn fr mag">Reservar mesa</a></section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="app.js"></script>
+</body></html>
