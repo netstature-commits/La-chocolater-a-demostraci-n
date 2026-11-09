@@ -20,14 +20,27 @@ em{color:var(--car);font-weight:500}
 .k{font:italic 500 1.15rem var(--serif);color:var(--car);margin-bottom:10px}
 footer{padding:40px 6vw 110px;border-top:1px solid rgba(244,230,208,.12);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:rgba(244,230,208,.55);font-size:.9rem}
 
-/* ===== BOTONES GALLETA ===== */
-.logo{position:fixed;top:24px;left:4vw;z-index:50;font:800 1.35rem var(--serif);color:var(--crema)}
-.dock{position:fixed;z-index:60;top:10px;right:3vw;display:flex;gap:8px;padding:6px 10px;border-radius:70px;background:rgba(32,16,10,.62);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.ck{width:78px;height:78px;border:0;border-radius:50%;background:url(imagenes/galleta.png) center/contain no-repeat;color:#2a140c;font:700 .78rem var(--sans);text-shadow:0 1px 0 rgba(255,235,200,.6);cursor:pointer;filter:drop-shadow(0 5px 6px rgba(0,0,0,.55));transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
-.ck:hover{transform:rotate(-9deg) scale(1.1)}
-.ck.on{transform:scale(1.08);outline:3px solid var(--car);outline-offset:-1px}
-.bk{display:inline-block;padding:17px 38px;border:0;border-radius:60px;background:var(--car) url(imagenes/galleta.png) center/cover;color:#2a140c;font:700 1rem var(--sans);text-shadow:0 1px 0 rgba(255,235,200,.55);cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.5),inset 0 0 0 2px rgba(255,255,255,.18);transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
-.bk:hover{transform:translateY(-3px) rotate(-2deg) scale(1.04)}
+/* ===== BOTONES GALLETA: galleta completa + etiqueta de chocolate para leer el texto ===== */
+.ck,.cb{position:relative;display:inline-grid;place-items:center;border:0;background:none;cursor:pointer;filter:drop-shadow(0 7px 9px rgba(0,0,0,.55));transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.ck img,.cb img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.ck span,.cb span{position:relative;z-index:1;max-width:84%;padding:.4em .85em;border-radius:30px;background:linear-gradient(#4a2517,#2a140c);color:var(--crema);font:700 .95rem/1.1 var(--sans);text-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 2px 5px rgba(0,0,0,.55)}
+.ck{width:84px;height:84px}.ck span{font-size:.68rem;padding:.35em .7em}
+.cb{width:150px;height:150px}
+.cb:nth-child(odd){transform:rotate(-6deg)}.cb:nth-child(even){transform:rotate(5deg)}
+.ck:hover,.cb:hover{transform:rotate(-10deg) scale(1.12)}
+.ck:active,.cb:active{transform:scale(.92)}
+.ck.on{transform:scale(1.1)}.ck.on span{background:var(--car);color:#20100a}
+.cr{position:fixed;z-index:1100;border-radius:40%;background:#6b3a22;pointer-events:none}
+.dock{position:fixed;z-index:60;top:8px;right:2.5vw;display:flex;gap:2px}
+
+/* ===== FONDO VIVO ===== */
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(60vw 50vh at 90% 8%,rgba(217,130,59,.16),transparent),radial-gradient(60vw 60vh at 5% 95%,rgba(58,29,18,.9),transparent)}
+body::after{content:"";position:fixed;inset:0;z-index:900;pointer-events:none;opacity:.07;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+#dust{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+#dust i{position:absolute;bottom:-12px;border-radius:50%;background:var(--car);animation:up linear infinite}
+@keyframes up{0%{transform:translate(0,0);opacity:0}12%{opacity:.55}100%{transform:translate(40px,-108vh);opacity:0}}
+.wrap{position:relative;z-index:1}
+.dec{position:absolute;right:4vw;top:110px;width:16vw;max-width:240px;filter:drop-shadow(0 14px 18px rgba(0,0,0,.5));pointer-events:none;z-index:0}
 
 /* ===== INTRO / TRANSICIÓN: barra de chocolate que se rompe ===== */
 #ov{position:fixed;inset:0;z-index:1000;display:grid;gap:3px;background:var(--cacao)}
@@ -38,31 +51,46 @@ footer{padding:40px 6vw 110px;border-top:1px solid rgba(244,230,208,.12);display
 /* ===== INICIO ===== */
 #hero{height:340vh;position:relative}
 .pin{position:sticky;top:0;height:100vh;overflow:hidden}
-.hl{position:absolute;z-index:5;left:6vw;top:50%;transform:translateY(-52%);width:min(44vw,600px)}
-.sub{margin:22px 0 30px;max-width:40ch;color:rgba(244,230,208,.8);font-size:1.1rem}
-.acts{display:flex;gap:14px;flex-wrap:wrap}
-.cap{position:relative;height:1.8rem;margin-top:36px;font:italic 500 1.3rem var(--serif);color:var(--car)}
+.glow{position:absolute;z-index:0;right:-8vw;top:50%;width:72vw;height:96vh;transform:translateY(-50%);background:radial-gradient(closest-side,rgba(217,130,59,.34),rgba(217,130,59,.1) 55%,transparent);animation:pu 6s ease-in-out infinite alternate}
+@keyframes pu{to{opacity:.55}}
+.bgword{position:absolute;z-index:1;left:0;right:0;top:50%;margin-top:-.5em;display:flex;justify-content:center;font:800 27vw/1 var(--serif);letter-spacing:-.03em;color:transparent;-webkit-text-stroke:2px rgba(217,130,59,.3);white-space:nowrap;pointer-events:none}
+.hl{position:absolute;z-index:5;left:6vw;top:50%;transform:translateY(-52%);width:min(42vw,580px)}
+.acts{display:flex;gap:4px;margin:18px 0 0 -14px}
+.cap{position:relative;height:1.8rem;margin-top:30px;font:italic 500 1.3rem var(--serif);color:var(--car)}
 .cap span{position:absolute;left:0;opacity:0;transform:translateY(12px);transition:.6s}.cap span.on{opacity:1;transform:none}
-.arch{position:absolute;right:7vw;top:50%;transform:translateY(-50%);height:min(80vh,700px);aspect-ratio:6/7;border-radius:999px 999px 28px 28px;overflow:hidden;background:var(--claro);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 2px rgba(217,130,59,.55),0 0 0 12px var(--cacao),0 0 0 14px rgba(217,130,59,.28)}
+.arch{position:absolute;z-index:3;right:7vw;top:50%;transform:translateY(-50%);height:min(80vh,700px);aspect-ratio:6/7;border-radius:999px 999px 28px 28px;overflow:hidden;background:var(--claro);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 2px rgba(217,130,59,.55),0 0 0 12px var(--cacao),0 0 0 14px rgba(217,130,59,.28)}
 .arch video{width:100%;height:100%;object-fit:cover;object-position:51% 50%}
 .fl{position:absolute;z-index:6;pointer-events:none;filter:drop-shadow(0 14px 18px rgba(0,0,0,.55))}
 .f1{right:3vw;top:10vh;width:15vw;max-width:230px}.f2{right:36vw;bottom:8vh;width:14vw;max-width:210px}
 .f3{right:2vw;bottom:9vh;width:15vw;max-width:230px}.f4{right:37vw;top:12vh;width:13vw;max-width:200px}
 .bar{position:absolute;left:0;bottom:0;height:4px;width:0;background:var(--car);z-index:7}
 
-/* ===== RECORRIDO DEL TREN ===== */
-#ruta{height:100vh;overflow:hidden;position:relative;background:linear-gradient(var(--cacao),#2b150d 65%,#170a06)}
+/* ===== RECORRIDO DEL TREN: atardecer, montañas y estaciones ===== */
+#ruta{height:100vh;overflow:hidden;position:relative;background:linear-gradient(#20100a 0%,#3d1c10 40%,#8a4320 72%,#d9823b 100%)}
+.sun{position:absolute;left:58vw;bottom:30vh;width:22vw;height:22vw;max-width:320px;max-height:320px;border-radius:50%;background:radial-gradient(circle,#ffe2b0 0 38%,#f3a65a 62%,rgba(243,166,90,0) 72%)}
+.hills{position:absolute;bottom:15vh;left:0;height:46vh}
+.h-far{width:150vw;fill:#5e2c17}.h-mid{width:200vw;fill:#33180d}
+.ground{position:absolute;left:0;right:0;bottom:0;height:19vh;background:linear-gradient(#2a140c,#140805)}
 .world{position:absolute;left:0;top:0;height:100%;display:flex}
-.st{width:100vw;height:100%;flex:none;display:flex;align-items:center;justify-content:center;gap:5vw;padding:11vh 6vw 24vh}
-.tx{max-width:34vw}.tx p:not(.k){margin:16px 0 28px;color:rgba(244,230,208,.78)}
+.st{width:100vw;height:100%;flex:none;position:relative;display:flex;align-items:center;justify-content:center;gap:4vw;padding:15vh 6vw 25vh}
+.sign{position:absolute;top:0;left:8vw;z-index:4;padding:48px 28px 20px;background:linear-gradient(#3a1d12,#2a140c);border:2px solid var(--car);border-top:0;border-radius:0 0 18px 18px;font:700 clamp(1.5rem,2.8vw,2.6rem)/1.05 var(--serif);box-shadow:0 14px 30px rgba(0,0,0,.5);transform-origin:50% 0;animation:sw 4s ease-in-out infinite alternate}
+.sign small{display:block;margin-bottom:4px;font:italic 500 .95rem var(--serif);color:var(--car)}
+@keyframes sw{from{transform:rotate(-1.6deg)}to{transform:rotate(1.6deg)}}
 .rail{position:absolute;left:0;right:0;bottom:17vh;height:10px;border-radius:5px;background:linear-gradient(#7a4426,#3a1d12)}
 .rail::before{content:"";position:absolute;left:0;right:0;top:12px;height:14px;background:repeating-linear-gradient(90deg,#4a2a18 0 14px,transparent 14px 48px)}
 .train{position:absolute;left:5vw;bottom:calc(17vh + 4px);width:min(36vw,480px);z-index:5;filter:drop-shadow(0 10px 12px rgba(0,0,0,.6))}
-.mini{display:flex;gap:16px}.mini figure{width:clamp(120px,13vw,190px)}
-.mini img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;box-shadow:0 14px 26px rgba(0,0,0,.5)}
-.mini figcaption{margin-top:8px;font-size:.85rem;line-height:1.3}
-.wide{width:min(42vw,600px);aspect-ratio:4/3;object-fit:cover;border-radius:22px;box-shadow:0 24px 50px rgba(0,0,0,.5)}
-.marc{height:50vh;aspect-ratio:4/5;object-fit:cover;border-radius:999px 999px 24px 24px;box-shadow:0 24px 50px rgba(0,0,0,.5)}
+.mini{display:flex;gap:18px;align-items:flex-start}
+.mini figure{position:relative;width:clamp(130px,15.5vw,230px)}.mini figure:nth-child(even){margin-top:56px}
+.mini img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:18px;box-shadow:0 16px 30px rgba(0,0,0,.55)}
+.tag{position:absolute;left:8px;right:8px;bottom:8px;padding:8px 10px;border-radius:12px;background:rgba(32,16,10,.84);font:700 .8rem/1.2 var(--sans)}
+.tag b{display:block;color:var(--car);font:700 1rem var(--serif)}
+.fig{position:relative}.fig>img{width:100%;height:100%;object-fit:cover;box-shadow:0 24px 50px rgba(0,0,0,.55)}
+.wide{width:min(56vw,860px);aspect-ratio:16/10}.wide>img{border-radius:22px}
+.wide::after{content:"";position:absolute;inset:0;border-radius:22px;background:linear-gradient(transparent 55%,rgba(20,8,4,.78));pointer-events:none}
+.marc{height:54vh;aspect-ratio:4/5}.marc>img{border-radius:999px 999px 24px 24px}
+.cp{position:absolute;z-index:2;left:24px;bottom:20px;font:italic 600 clamp(1.1rem,1.9vw,1.7rem) var(--serif);color:var(--crema);text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.fig .cb{position:absolute;z-index:3;right:-34px;bottom:-44px}
+.st>.cb{position:absolute;right:4vw;bottom:21vh}
 
 /* ===== MENÚ / LOCAL / RESERVAS ===== */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px}
@@ -82,36 +110,39 @@ select option{color:#222}
 .info{background:var(--claro);border-radius:22px;padding:36px}.info b{display:block;font:700 1.3rem var(--serif);color:var(--car);margin-top:22px}.info b:first-child{margin-top:0}
 
 @media(max-width:860px){
-  .logo{display:none}
-  .dock{top:auto;bottom:10px;right:50%;transform:translateX(50%);gap:4px}
-  .ck{width:62px;height:62px;font-size:.66rem}
-  .hl{left:6vw;right:6vw;width:auto;top:auto;bottom:14vh;transform:none}.sub{display:none}h1{font-size:2.25rem}.cap{margin-top:22px}
-  .arch{right:auto;left:50%;transform:translateX(-50%);top:8vh;height:42vh}
-  .f1{width:26vw;right:2vw;top:8vh}.f2{width:24vw;right:auto;left:2vw;top:33vh;bottom:auto}.f3{width:26vw;right:2vw;bottom:auto;top:36vh}.f4{display:none}
-  .st{flex-direction:column;gap:16px;text-align:center;padding:9vh 6vw 27vh}.tx{max-width:none}
-  .wide{width:80vw}.marc{height:28vh}.mini{display:grid;grid-template-columns:repeat(2,1fr);width:70vw}.mini figcaption{display:none}
+  .dock{top:auto;bottom:6px;right:50%;transform:translateX(50%);gap:0;padding:2px 8px;border-radius:70px;background:rgba(32,16,10,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  .ck{width:66px;height:66px}.ck span{font-size:.6rem}
+  .cb{width:112px;height:112px}.cb span{font-size:.78rem}
+  .hl{left:6vw;right:6vw;width:auto;top:auto;bottom:15vh;transform:none}h1{font-size:2.2rem}.cap{margin-top:20px}.acts{margin-top:10px}
+  .bgword{font-size:34vw}.glow{right:auto;left:-20vw;width:140vw}
+  .arch{right:auto;left:50%;transform:translateX(-50%);top:8vh;height:40vh}
+  .f1{width:26vw;right:2vw;top:8vh}.f2{width:24vw;right:auto;left:2vw;top:32vh;bottom:auto}.f3{width:26vw;right:2vw;bottom:auto;top:35vh}.f4{display:none}
+  .st{flex-direction:column;gap:14px;padding:17vh 6vw 27vh}
+  .sign{left:6vw;padding:36px 18px 12px;font-size:1.3rem}
+  .mini{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:70vw}.mini figure{width:auto}.mini figure:nth-child(even){margin-top:0}.tag{font-size:.66rem;padding:5px 7px}.tag b{font-size:.85rem}
+  .wide{width:84vw}.marc{height:32vh}.fig .cb{right:-12px;bottom:-40px}.st>.cb{right:3vw;bottom:23vh}
   .train{width:58vw;bottom:calc(20vh + 4px)}.rail{bottom:20vh}
   .two{grid-template-columns:1fr}.lgrid .a,.lgrid .b,.lgrid .c{grid-column:1/-1;grid-row:auto;min-height:0;aspect-ratio:4/3}
-  .wrap{padding-top:110px}
+  .wrap{padding-top:110px}.dec{width:24vw;top:80px}
 }
 </style></head>
 <body>
 <div id="ov"></div><div id="tn">La<br>Chocolatería</div><button id="sk">Saltar</button>
-<a class="logo" href="#home">La Chocolatería</a>
 <nav class="dock">
-  <button class="ck on" data-go="home">Inicio</button><button class="ck" data-go="menu">Menú</button>
-  <button class="ck" data-go="local">El local</button><button class="ck" data-go="reservas">Reservas</button>
+  <button class="ck on" data-go="home"><img src="imagenes/galleta.png" alt=""><span>Inicio</span></button><button class="ck" data-go="menu"><img src="imagenes/galleta.png" alt=""><span>Menú</span></button>
+  <button class="ck" data-go="local"><img src="imagenes/galleta.png" alt=""><span>El local</span></button><button class="ck" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservas</span></button>
 </nav>
+<div id="dust"></div>
 
 <main>
 <!-- ===== INICIO ===== -->
 <section class="view on" id="home">
   <div id="hero"><div class="pin">
+    <div class="glow"></div><div class="bgword" aria-hidden="true">Chocolate</div>
     <div class="hl">
       <h1 class="rv">Chocolate que se sirve <em>despacio</em></h1>
-      <p class="sub rv">Cacao boliviano, olla de cobre y fuego bajo. Una taza que no se prepara: se sirve.</p>
-      <div class="acts rv"><button class="bk" data-go="menu">Ver el menú</button><button class="bk" data-go="reservas">Reservar mesa</button></div>
       <p class="cap rv"><span class="on">Cacao molido a mano</span><span>Fundido sin prisa</span><span>Servido para ti</span></p>
+      <div class="acts rv"><button class="cb" data-go="menu"><img src="imagenes/galleta.png" alt=""><span>Ver el menú</span></button><button class="cb" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservar mesa</span></button></div>
     </div>
     <!-- el video avanza con tu scroll: el chocolate baja hasta llenar la taza -->
     <div class="arch"><video id="vid" src="video-taza.mp4" poster="imagenes/poster.jpg" muted playsinline preload="auto"></video></div>
@@ -120,35 +151,39 @@ select option{color:#222}
     <div class="bar"></div>
   </div></div>
   <div id="ruta">
+    <div class="sun"></div>
+    <svg class="hills h-far" viewBox="0 0 1500 400" preserveAspectRatio="none"><path d="M0 400V250C150 170 260 90 420 150S650 260 800 190 1050 60 1220 130 1400 220 1500 170V400Z"/></svg>
+    <svg class="hills h-mid" viewBox="0 0 2000 400" preserveAspectRatio="none"><path d="M0 400V230C200 150 330 250 520 200S800 90 980 170 1250 280 1450 210 1750 110 2000 180V400Z"/></svg>
+    <div class="ground"></div>
     <div class="world">
       <div class="rail"></div>
-      <div class="st"><div class="tx"><p class="k">Estación 1</p><h2>Los favoritos <em>de la casa</em></h2><p>Cuatro clásicos que no fallan, servidos al momento.</p><button class="bk" data-go="menu">Ver el menú</button></div><div class="mini" id="mini"></div></div>
-      <div class="st"><img class="wide" src="imagenes/local-1.jpg" alt="El local"><div class="tx"><p class="k">Estación 2</p><h2>Un rincón <em>para quedarse</em></h2><p>Madera oscura, cobre y una barra abierta donde ves fundirse el chocolate.</p><button class="bk" data-go="local">Conocer el local</button></div></div>
-      <div class="st"><div class="tx"><p class="k">Última estación</p><h2>Tu mesa <em>te espera</em></h2><p>Dinos cuándo vienes y la dejamos lista, con la taza caliente.</p><button class="bk" data-go="reservas">Reservar mesa</button></div><img class="marc" src="imagenes/local-2.jpg" alt="Mesa junto a la ventana"></div>
+      <div class="st"><div class="sign"><small>Estación 1</small>Favoritos</div><div class="mini" id="mini"></div><button class="cb" data-go="menu"><img src="imagenes/galleta.png" alt=""><span>Ver el menú</span></button></div>
+      <div class="st"><div class="sign"><small>Estación 2</small>El local</div><div class="fig wide"><img src="imagenes/local-1.jpg" alt="El local"><p class="cp">Un rincón para quedarse</p><button class="cb" data-go="local"><img src="imagenes/galleta.png" alt=""><span>Conocer el local</span></button></div></div>
+      <div class="st"><div class="sign"><small>Última estación</small>Tu mesa</div><div class="fig marc"><img src="imagenes/local-2.jpg" alt="Mesa junto a la ventana"><p class="cp">Con la taza caliente</p><button class="cb" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservar mesa</span></button></div></div>
     </div>
     <img class="train" src="imagenes/tren.png" alt="">
   </div>
 </section>
 
 <!-- ===== MENÚ ===== -->
-<section class="view" id="menu"><div class="wrap">
+<section class="view" id="menu"><div class="wrap"><img class="dec" src="imagenes/trozo-2.png" alt="">
   <h2 class="rv">Nuestro <em>menú</em></h2><p class="lead rv">Todo se prepara al momento, con cacao de verdad.</p>
   <div class="grid" id="grid"></div>
 </div></section>
 
 <!-- ===== EL LOCAL ===== -->
-<section class="view" id="local"><div class="wrap">
+<section class="view" id="local"><div class="wrap"><img class="dec" src="imagenes/trozo-4.png" alt="">
   <h2 class="rv">Nuestro <em>local</em></h2><p class="lead rv">Madera oscura, cobre y una barra abierta. Un rincón para quedarse la tarde entera.</p>
   <div class="lgrid rv"><img class="a" src="imagenes/local-1.jpg" alt=""><img class="b" src="imagenes/local-2.jpg" alt=""><img class="c" src="imagenes/local-3.jpg" alt=""></div>
   <div class="hor rv"><p><b>Lunes a sábado</b>8:00 a 21:00</p><p><b>Domingo</b>9:00 a 19:00</p><p><b>Dirección</b>Av. Arce 2345, Sopocachi, La Paz</p></div>
 </div></section>
 
 <!-- ===== RESERVAS ===== -->
-<section class="view" id="reservas"><div class="wrap two">
+<section class="view" id="reservas"><div class="wrap two"><img class="dec" src="imagenes/trozo-3.png" alt="">
   <div><h2 class="rv">Reserva <em>tu mesa</em></h2><p class="lead rv">Cuéntanos cuándo vienes y te guardamos el mejor lugar.</p>
     <form class="rv" onsubmit="return false"><input placeholder="Tu nombre" aria-label="Nombre"><input type="date" aria-label="Fecha">
       <select aria-label="Personas"><option>2 personas</option><option>3 a 4 personas</option><option>5 o más</option></select>
-      <button class="bk" type="button" onclick="this.textContent='¡Listo! Te esperamos'">Confirmar reserva</button></form></div>
+      <button class="cb" type="button" style="justify-self:start" onclick="this.querySelector('span').textContent='¡Reservado!'"><img src="imagenes/galleta.png" alt=""><span>Confirmar reserva</span></button></form></div>
   <div class="info rv"><b>Dirección</b>Av. Arce 2345, Sopocachi, La Paz<b>Horarios</b>Lunes a sábado, 8:00 a 21:00<br>Domingo, 9:00 a 19:00<b>Redes</b>@lachocolateria.bo</div>
 </div></section>
 </main>
@@ -167,7 +202,7 @@ const P=[['Chocolate caliente clásico','Cacao espeso con crema batida y canela.
 ['Croissant de chocolate','Hojaldre dorado con chocolate negro fundido.',22,'cafe-3','52%'],
 ['Fresas con chocolate','Fresas frescas bañadas en chocolate tibio.',32,'cafe-4','55%']];
 $('#grid').innerHTML=P.map(p=>`<article class="card rv"><div class="im"><img src="imagenes/${p[3]}.jpg" style="object-position:${p[4]} 50%" alt="${p[0]}"></div><div class="t"><h3>${p[0]}</h3><p>${p[1]}</p><span class="pr">Bs ${p[2]}</span></div></article>`).join('');
-$('#mini').innerHTML=P.map(p=>`<figure><img src="imagenes/${p[3]}.jpg" style="object-position:${p[4]} 50%" alt=""><figcaption>${p[0]}</figcaption></figure>`).join('');
+$('#mini').innerHTML=P.map(p=>`<figure><img src="imagenes/${p[3]}.jpg" style="object-position:${p[4]} 50%" alt="${p[0]}"><figcaption class="tag">${p[0]}<b>Bs ${p[2]}</b></figcaption></figure>`).join('');
 
 /* ----- Barra de chocolate: intro y transición entre pantallas ----- */
 const ov=$('#ov'),tn=$('#tn'),sk=$('#sk');let C,R,T=[],busy=true;
@@ -214,11 +249,24 @@ fl.forEach((el,i)=>{gsap.to(el,{yPercent:i%2?-7:7,duration:2.4+i*.4,repeat:-1,yo
 if(matchMedia('(pointer:fine)').matches&&!reduce)addEventListener('pointermove',e=>{const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;
   fl.forEach((el,i)=>gsap.to(el,{x:x*(i+1)*-26,y:y*(i+1)*-22,duration:1.2,ease:'power2.out',overwrite:'auto'}))});
 
-/* ----- Recorrido: el tren avanza y el paisaje pasa por las estaciones ----- */
+/* ----- Recorrido: el tren avanza y el paisaje se mueve con profundidad ----- */
 const w=$('.world');
 if(reduce)$('#ruta').style.overflowX='auto';
-else{gsap.to(w,{x:()=>-(w.scrollWidth-innerWidth),ease:'none',scrollTrigger:{trigger:'#ruta',start:'top top',end:'+=250%',pin:true,scrub:.6,invalidateOnRefresh:true}});
+else{const dx=()=>-(w.scrollWidth-innerWidth);
+  gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'#ruta',start:'top top',end:'+=250%',pin:true,scrub:.6,invalidateOnRefresh:true}})
+    .to(w,{x:dx},0).to('.h-far',{x:()=>dx()*.2},0).to('.h-mid',{x:()=>dx()*.45},0).to('.sun',{x:()=>dx()*.06},0);
   gsap.to('.train',{y:-2.5,duration:.13,repeat:-1,yoyo:true,ease:'sine.inOut'})}
+
+/* ----- Fondo vivo: polvo de cacao, palabra gigante, adornos y migas de galleta ----- */
+if(!reduce){
+  const d=$('#dust');for(let i=0;i<26;i++){const e=document.createElement('i'),z=gsap.utils.random(3,8);
+    e.style.cssText=`left:${gsap.utils.random(0,100)}%;width:${z}px;height:${z}px;animation-duration:${gsap.utils.random(9,20)}s;animation-delay:-${gsap.utils.random(0,20)}s`;d.appendChild(e)}
+  gsap.to('.bgword',{xPercent:-10,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom bottom',scrub:true}});
+  gsap.to('.dec',{yPercent:8,rotation:'+=14',duration:3,repeat:-1,yoyo:true,ease:'sine.inOut'});
+  document.addEventListener('click',e=>{const b=e.target.closest('.cb,.ck');if(!b)return;const r=b.getBoundingClientRect();
+    for(let i=0;i<8;i++){const c=document.createElement('i'),z=gsap.utils.random(4,9);c.className='cr';
+      c.style.cssText=`left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;width:${z}px;height:${z}px`;document.body.appendChild(c);
+      gsap.to(c,{x:gsap.utils.random(-70,70),y:gsap.utils.random(-60,80),rotation:gsap.utils.random(-180,180),opacity:0,duration:.8,ease:'power2.out',onComplete:()=>c.remove()})}})}
 
 /* ----- Arranque: intro con la barra de chocolate ----- */
 const h0=location.hash.slice(1);show(V.includes(h0)?h0:'home');
