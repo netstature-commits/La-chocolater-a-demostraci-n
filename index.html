@@ -45,7 +45,7 @@ body::after{content:"";position:fixed;inset:0;z-index:900;pointer-events:none;op
 
 /* ===== INTRO / TRANSICIÓN: barra de chocolate que se rompe ===== */
 #ov{position:fixed;inset:0;z-index:1000;display:grid;gap:3px;background:var(--cacao)}
-#ov i{background:var(--claro) url(imagenes/barra.jpg);border-radius:4px;box-shadow:inset 2px 2px 5px rgba(255,255,255,.14),inset -3px -3px 7px rgba(0,0,0,.55)}
+#ov i{background:var(--claro) url(imagenes/barra.webp);border-radius:4px;box-shadow:inset 2px 2px 5px rgba(255,255,255,.14),inset -3px -3px 7px rgba(0,0,0,.55)}
 #tn{position:fixed;inset:0;z-index:1001;display:grid;place-items:center;padding:0 5vw;text-align:center;pointer-events:none;font:800 clamp(2.4rem,9vw,8rem)/.95 var(--serif);letter-spacing:-.02em;color:#5a3020;text-shadow:-2px -2px 3px rgba(255,255,255,.3),3px 4px 6px rgba(0,0,0,.8)}
 #sk{position:fixed;right:4vw;bottom:4vh;z-index:1002;background:rgba(32,16,10,.5);border:1px solid rgba(244,230,208,.5);color:var(--crema);padding:8px 20px;border-radius:40px;cursor:pointer;font:500 .9rem var(--sans)}
 
@@ -203,21 +203,10 @@ input.bad,select.bad{border-color:#e8604a;outline:2px solid #e8604a}
 @media(hover:hover){.card:hover .pr{transform:rotate(-4deg) scale(1.08)}.lgrid img:hover{transform:rotate(0) scale(1.03)}}
 @media(pointer:coarse){.ck,.cb,.train{filter:none}.glow{animation:none}}
 
-/* ===== BOTÓN WHATSAPP (galleta flotante) ===== */
-.ck.wa{position:fixed;z-index:61;right:14px;bottom:calc(106px + env(safe-area-inset-bottom));width:76px;height:76px;text-decoration:none;animation:wig 7s ease-in-out infinite}
-.ck.wa span{font-size:.6rem}
-@keyframes wig{0%,86%,100%{rotate:0deg}90%{rotate:-12deg}94%{rotate:10deg}97%{rotate:-5deg}}
-@media(min-width:861px){.ck.wa{right:26px;bottom:26px;width:92px;height:92px}.ck.wa span{font-size:.72rem}}
-@media(prefers-reduced-motion:reduce){.ck.wa{animation:none}}
-
 /* ===== AJUSTES DE CAFETERÍA Y RENDIMIENTO MÓVIL ===== */
 .hero-note{max-width:36ch;margin-top:10px;color:rgba(244,230,208,.76);font-size:.96rem;line-height:1.5}
 .menu-footnote{margin-top:22px;color:rgba(244,230,208,.55);font-size:.8rem}
 .hor{align-items:flex-start}.hor p{flex:1 1 190px;max-width:34ch;color:rgba(244,230,208,.75)}
-.ck.wa{position:fixed;z-index:95;right:17px;bottom:24px;width:86px;height:86px;text-decoration:none}
-.ck.wa .wa-mark{position:absolute;z-index:3;left:50%;top:50%;width:39px;height:39px;max-width:none;padding:0;display:grid;place-items:center;border-radius:50%;background:#20c763;box-shadow:0 3px 9px rgba(0,0,0,.4);transform:translate(-50%,-50%)}
-.ck.wa .wa-mark svg{display:block;width:27px;height:27px;fill:#fff}
-.ck.wa:hover{transform:translateY(-3px) rotate(-5deg) scale(1.06)}
 @media(max-width:860px){
   body::after{display:none}#dust{display:none}
   .dock{z-index:90}
@@ -234,8 +223,6 @@ input.bad,select.bad{border-color:#e8604a;outline:2px solid #e8604a}
   .card{transition:none}.card img{transition:none}
   .card h3{font-size:1.03rem;line-height:1.14}.card p{font-size:.79rem;line-height:1.4}
   .card .t{padding:13px}.pr{align-self:flex-start;margin-top:10px;font-size:.96rem}
-  .ck.wa{right:10px;bottom:calc(84px + env(safe-area-inset-bottom));width:68px;height:68px}
-  .ck.wa .wa-mark{width:33px;height:33px}.ck.wa .wa-mark svg{width:23px;height:23px}
   .wrap{padding:108px 5vw 38px}.lead{font-size:1rem;margin:13px 0 28px}
   .two{grid-template-columns:1fr;gap:26px}.hor{gap:15px;margin-top:30px}.hor p{flex:1 1 100%;max-width:none;font-size:.9rem}
 }
@@ -246,6 +233,62 @@ input.bad,select.bad{border-color:#e8604a;outline:2px solid #e8604a}
 }
 @media(prefers-reduced-motion:reduce){.ck.wa,.train,.sign,.dec{animation:none!important}}
 
+
+/* ===== TREN: sticky nativo (sin saltos al subir/bajar en celular) ===== */
+#rwrap{height:350vh;height:350svh;position:relative}
+#ruta{position:sticky;top:0}
+.bar{width:100%;transform:scaleX(0);transform-origin:0 50%;will-change:transform}
+.puff{position:absolute;z-index:4;left:calc(5vw + var(--tw)*.71);bottom:calc(17vh + 4px + var(--tw)*.25);width:calc(var(--tw)*.045);height:calc(var(--tw)*.045);border-radius:50%;background:rgba(244,230,208,.75);opacity:0;pointer-events:none;animation:pf 2.6s ease-out infinite}
+.puff:nth-of-type(2){animation-delay:.85s}.puff:nth-of-type(3){animation-delay:1.7s}
+@keyframes pf{0%{transform:translate(0,0) scale(.4);opacity:0}15%{opacity:.7}100%{transform:translate(-46px,-80px) scale(2.4);opacity:0}}
+:root{--tw:min(36vw,480px)}
+/* ===== WHATSAPP: galleta con etiqueta + burbuja ===== */
+.wa-wrap{position:fixed;z-index:95;right:16px;bottom:22px;display:flex;align-items:center;gap:6px}
+body.lock .wa-wrap{display:none}
+.ck.wa{width:92px;height:92px;text-decoration:none;animation:wig 7s ease-in-out infinite}.ck.wa span{font-size:.7rem}
+@keyframes wig{0%,86%,100%{rotate:0deg}90%{rotate:-12deg}94%{rotate:10deg}97%{rotate:-5deg}}
+.wa-mark{position:absolute;z-index:3;right:-3px;top:-3px;width:36px;height:36px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 3px 8px rgba(0,0,0,.45)}
+.wa-mark::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25d366;animation:wr 2.4s ease-out infinite}
+@keyframes wr{from{transform:scale(1);opacity:.8}to{transform:scale(1.9);opacity:0}}
+.wa-mark svg{width:22px;height:22px;fill:#fff}
+.wa-tip{order:-1;max-width:46vw;padding:10px 16px;border-radius:18px 18px 4px 18px;background:var(--crema);color:#2a140c;font:500 .86rem/1.25 var(--sans);box-shadow:0 8px 22px rgba(0,0,0,.45);opacity:0;transform:translateX(12px) scale(.94);transform-origin:right center;transition:opacity .4s,transform .4s cubic-bezier(.3,1.5,.5,1);pointer-events:none}
+.wa-tip b{display:block;font:700 .95rem var(--serif)}.wa-tip.on{opacity:1;transform:none;pointer-events:auto}
+/* ===== RESERVAS: formulario + ticket en vivo ===== */
+.two{align-items:start}#rsv{gap:20px}
+.fld>span{font:500 .9rem var(--sans);color:rgba(244,230,208,.8)}.fld small{opacity:.6;font-size:.85em}
+.tk{position:sticky;top:112px;display:grid;gap:12px;padding:30px 26px 26px;background:var(--claro);border:2px dashed rgba(217,130,59,.5);border-radius:22px}
+.tk::before,.tk::after{content:"";position:absolute;top:104px;width:26px;height:26px;border-radius:50%;background:var(--cacao)}
+.tk::before{left:-14px}.tk::after{right:-14px}
+.tk-h{font:italic 600 1rem var(--serif);color:var(--car)}
+.tk-n{font:800 1.9rem/1.05 var(--serif);word-break:break-word;padding-right:70px}
+.tk-r{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding-top:16px;border-top:1px dashed rgba(244,230,208,.25)}
+.tk-r b{font:700 1.25rem var(--serif);color:var(--car)}.tk-r span{font:800 1.6rem var(--serif)}
+.tk-p{display:flex;flex-wrap:wrap;gap:8px}.tk-p span{padding:5px 12px;border-radius:99px;background:rgba(244,230,208,.09);font-size:.88rem}
+.tk-t{font:italic 500 .95rem var(--serif);color:rgba(244,230,208,.75)}
+.tk .cb{justify-self:center;margin-top:4px}
+.tk-s{font-size:.82rem;text-align:center;color:rgba(244,230,208,.65)}
+.tk-q{justify-self:center;font-size:.9rem;color:var(--crema);text-decoration:underline;text-underline-offset:3px}
+.stamp{position:absolute;right:18px;top:16px;padding:4px 12px;border:2px solid var(--car);border-radius:8px;font:800 .95rem var(--serif);color:var(--car);transform:rotate(10deg) scale(2);opacity:0;pointer-events:none}
+.stamp.on{animation:st .5s cubic-bezier(.3,1.6,.5,1) forwards}@keyframes st{to{transform:rotate(10deg) scale(1);opacity:1}}
+.cf{position:fixed;z-index:1100;width:22px;height:22px;fill:none;stroke:var(--car);stroke-width:3;pointer-events:none;animation:cf 1.1s ease-out forwards}
+@keyframes cf{to{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
+/* ===== MICROINTERACCIONES ligeras ===== */
+.ck.on{animation:pop .45s cubic-bezier(.3,1.6,.5,1)}@keyframes pop{40%{transform:scale(1.3)}}
+.pr:active{transform:scale(1.15) rotate(-4deg)}.lgrid img:active{transform:rotate(0) scale(1.02)}
+.chips button,.step button{-webkit-tap-highlight-color:transparent}
+/* ===== RENDIMIENTO EN CELULAR ===== */
+@media(pointer:coarse){.logo{filter:none;text-shadow:0 2px 8px rgba(0,0,0,.6)}.dock{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(32,16,10,.95)}}
+@media(max-width:860px){
+  #rwrap{height:305vh;height:305svh}:root{--tw:46vw}
+  .dock{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(32,16,10,.95)}
+  .wa-wrap{right:10px;bottom:calc(84px + env(safe-area-inset-bottom))}
+  .ck.wa{width:70px;height:70px}.ck.wa span{font-size:.58rem}.wa-mark{width:30px;height:30px}.wa-mark svg{width:19px;height:19px}.wa-tip{max-width:56vw}
+  .tk{position:relative;top:auto}.train{bottom:calc(20svh + 9px)}.puff{bottom:calc(20svh + 9px + var(--tw)*.25)}
+  .f2{top:auto;bottom:calc(112px + env(safe-area-inset-bottom));left:1vw}
+}
+.world{z-index:6}.train{z-index:5;bottom:calc(17vh + 9px)}.puff{bottom:calc(17vh + 9px + var(--tw)*.25)}
+@media(min-width:861px){:root{--tb:calc(17vh + 9px + var(--tw)*.26 + 26px)}.st{padding-bottom:var(--tb)}.wide{max-height:100%}.marc{height:min(54vh,100%)}#reservas .dec{right:auto;left:40vw;top:96px;width:11vw}}
+@media(prefers-reduced-motion:reduce){.puff,.wa-mark::after,.ck.on{animation:none}}
 </style></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -254,12 +297,13 @@ input.bad,select.bad{border-color:#e8604a;outline:2px solid #e8604a}
 </defs></svg>
 <div id="ov"></div><div id="tn">La<br>Chocolatería</div><button id="sk">Saltar</button>
 <nav class="dock">
-  <button class="ck on" data-go="home"><img src="imagenes/galleta.png" alt=""><span>Inicio</span></button><button class="ck" data-go="menu"><img src="imagenes/galleta.png" alt=""><span>Menú</span></button>
-  <button class="ck" data-go="local"><img src="imagenes/galleta.png" alt=""><span>El local</span></button><button class="ck" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservas</span></button>
+  <button class="ck on" data-go="home"><img src="imagenes/galleta.webp" alt=""><span>Inicio</span></button><button class="ck" data-go="menu"><img src="imagenes/galleta.webp" alt=""><span>Menú</span></button>
+  <button class="ck" data-go="local"><img src="imagenes/galleta.webp" alt=""><span>El local</span></button><button class="ck" data-go="reservas"><img src="imagenes/galleta.webp" alt=""><span>Reservas</span></button>
 </nav>
 <a class="logo" href="#home" aria-label="La Chocolatería, inicio"><i class="la">La</i><b class="nm">Chocolatería</b><svg class="gl" viewBox="0 0 200 34" aria-hidden="true"><rect width="200" height="9" rx="4.5"/><path d="M26 5v16a4.5 4.5 0 0 0 9 0V5zM88 5v10a4.5 4.5 0 0 0 9 0V5zM150 5v21a4.5 4.5 0 0 0 9 0V5zM182 5v8a3.5 3.5 0 0 0 7 0V5z"/><circle class="dp" cx="154.5" cy="29" r="3.2"/></svg></a>
 <div id="dust"></div>
-<a class="ck wa" href="https://wa.me/59175506397?text=Hola%2C%20quiero%20hacer%20una%20consulta%20en%20La%20Chocolater%C3%ADa" target="_blank" rel="noopener" aria-label="Abrir WhatsApp"><img src="imagenes/galleta.png" alt=""><span class="wa-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 2.67C8.71 2.67 2.75 8.54 2.75 15.76c0 2.3.61 4.55 1.77 6.53l-1.85 7.04 7.25-1.89a13.55 13.55 0 0 0 6.12 1.46h.01c7.33 0 13.29-5.87 13.29-13.09 0-3.5-1.38-6.79-3.89-9.26a13.3 13.3 0 0 0-9.41-3.88zm0 23.98h-.01a11.1 11.1 0 0 1-5.65-1.54l-.4-.24-4.3 1.12 1.15-4.15-.26-.42a10.86 10.86 0 0 1-1.67-5.66c0-6 5-10.88 11.14-10.88 2.97 0 5.76 1.14 7.86 3.22a10.7 10.7 0 0 1 3.26 7.66c0 6-5 10.89-11.12 10.89zm6.11-8.15c-.33-.16-1.95-.95-2.25-1.06-.3-.11-.52-.16-.74.16-.22.33-.85 1.06-1.04 1.28-.19.22-.38.25-.71.08-.33-.16-1.4-.5-2.67-1.61-.99-.86-1.66-1.92-1.85-2.25-.19-.33-.02-.5.14-.66.15-.15.33-.38.49-.57.16-.19.22-.33.33-.55.11-.22.05-.41-.03-.57-.08-.16-.74-1.77-1.02-2.42-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.33-1.14 1.11-1.14 2.7s1.17 3.13 1.33 3.35c.16.22 2.3 3.48 5.58 4.88.78.33 1.39.53 1.86.68.78.24 1.49.21 2.05.13.63-.09 1.95-.79 2.23-1.56.27-.77.27-1.43.19-1.56-.08-.13-.3-.22-.63-.38z"/></svg></span></a>
+<div class="wa-wrap"><p class="wa-tip" id="wat" role="status">¿Alguna duda?<b>Escríbenos</b></p>
+<a class="ck wa" id="wa" href="https://wa.me/59175506397" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp a La Chocolatería"><img src="imagenes/galleta.webp" alt=""><span>Escríbenos</span><i class="wa-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 2.67C8.71 2.67 2.75 8.54 2.75 15.76c0 2.3.61 4.55 1.77 6.53l-1.85 7.04 7.25-1.89a13.55 13.55 0 0 0 6.12 1.46h.01c7.33 0 13.29-5.87 13.29-13.09 0-3.5-1.38-6.79-3.89-9.26a13.3 13.3 0 0 0-9.41-3.88zm0 23.98h-.01a11.1 11.1 0 0 1-5.65-1.54l-.4-.24-4.3 1.12 1.15-4.15-.26-.42a10.86 10.86 0 0 1-1.67-5.66c0-6 5-10.88 11.14-10.88 2.97 0 5.76 1.14 7.86 3.22a10.7 10.7 0 0 1 3.26 7.66c0 6-5 10.89-11.12 10.89zm6.11-8.15c-.33-.16-1.95-.95-2.25-1.06-.3-.11-.52-.16-.74.16-.22.33-.85 1.06-1.04 1.28-.19.22-.38.25-.71.08-.33-.16-1.4-.5-2.67-1.61-.99-.86-1.66-1.92-1.85-2.25-.19-.33-.02-.5.14-.66.15-.15.33-.38.49-.57.16-.19.22-.33.33-.55.11-.22.05-.41-.03-.57-.08-.16-.74-1.77-1.02-2.42-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.33-1.14 1.11-1.14 2.7s1.17 3.13 1.33 3.35c.16.22 2.3 3.48 5.58 4.88.78.33 1.39.53 1.86.68.78.24 1.49.21 2.05.13.63-.09 1.95-.79 2.23-1.56.27-.77.27-1.43.19-1.56-.08-.13-.3-.22-.63-.38z"/></svg></i></a></div>
 
 <main>
 <!-- ===== INICIO ===== -->
@@ -270,56 +314,61 @@ input.bad,select.bad{border-color:#e8604a;outline:2px solid #e8604a}
     <div class="hl">
       <p class="k rv">CAFÉ · BEBIDAS · POSTRES</p><h1 class="rv">Un café para disfrutar <em>despacio</em></h1>
       <p class="cap rv"><span class="on">Café recién preparado</span><span>Algo dulce para acompañar</span><span>Un rincón para ti</span></p><p class="hero-note rv">Una pausa para conversar, desconectar y disfrutar el momento.</p>
-      <div class="acts rv"><button class="cb" data-go="menu"><img src="imagenes/galleta.png" alt=""><span>Ver el menú</span></button><button class="cb" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservar mesa</span></button></div>
+      <div class="acts rv"><button class="cb" data-go="menu"><img src="imagenes/galleta.webp" alt=""><span>Ver el menú</span></button><button class="cb" data-go="reservas"><img src="imagenes/galleta.webp" alt=""><span>Reservar mesa</span></button></div>
     </div>
     <!-- el video avanza con tu scroll: el chocolate baja hasta llenar la taza -->
-    <div class="arch"><video id="vid" data-src="video-taza.mp4" poster="imagenes/poster.jpg" muted playsinline preload="metadata" disablepictureinpicture></video><div class="hint"><svg viewBox="0 0 14 14"><path d="M7 2v9M3 7l4 4 4-4"/></svg>Desliza para llenar la taza</div></div>
-    <img class="fl f1" src="imagenes/trozo-1.png" alt=""><img class="fl f2" src="imagenes/trozo-2.png" alt="">
-    <img class="fl f3" src="imagenes/trozo-3.png" alt=""><img class="fl f4" src="imagenes/trozo-4.png" alt="">
+    <div class="arch"><video id="vid" data-src="video-taza.mp4" poster="imagenes/poster.webp" muted playsinline preload="metadata" disablepictureinpicture></video><div class="hint"><svg viewBox="0 0 14 14"><path d="M7 2v9M3 7l4 4 4-4"/></svg>Desliza para llenar la taza</div></div>
+    <img class="fl f1" src="imagenes/trozo-1.webp" alt=""><img class="fl f2" src="imagenes/trozo-2.webp" alt="">
+    <img class="fl f3" src="imagenes/trozo-3.webp" alt=""><img class="fl f4" src="imagenes/trozo-4.webp" alt="">
     <div class="bar"></div>
   </div></div>
-  <div id="ruta">
+  <div id="rwrap"><div id="ruta">
     <div class="sun"></div>
     <svg class="hills h-far" viewBox="0 0 1500 400" preserveAspectRatio="none"><path d="M0 400V250C150 170 260 90 420 150S650 260 800 190 1050 60 1220 130 1400 220 1500 170V400Z"/></svg>
     <svg class="hills h-mid" viewBox="0 0 2000 400" preserveAspectRatio="none"><path d="M0 400V230C200 150 330 250 520 200S800 90 980 170 1250 280 1450 210 1750 110 2000 180V400Z"/></svg>
     <div class="ground"></div>
     <div class="world">
       <div class="rail"></div>
-      <div class="st"><div class="sign"><small>Estación 1</small>Favoritos</div><div class="mini" id="mini"></div><button class="cb" data-go="menu"><img src="imagenes/galleta.png" alt=""><span>Ver el menú</span></button></div>
-      <div class="st"><div class="sign"><small>Estación 2</small>El local</div><div class="fig wide"><img src="imagenes/local-1.jpg" alt="El local"><p class="cp">Un rincón para quedarse</p><button class="cb" data-go="local"><img src="imagenes/galleta.png" alt=""><span>Conocer el local</span></button></div></div>
-      <div class="st"><div class="sign"><small>Última estación</small>Tu mesa</div><div class="fig marc"><img src="imagenes/local-2.jpg" alt="Mesa junto a la ventana"><p class="cp">Con la taza caliente</p><button class="cb" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservar mesa</span></button></div></div>
+      <div class="st"><div class="sign"><small>Estación 1</small>Favoritos</div><div class="mini" id="mini"></div><button class="cb" data-go="menu"><img src="imagenes/galleta.webp" alt=""><span>Ver el menú</span></button></div>
+      <div class="st"><div class="sign"><small>Estación 2</small>El local</div><div class="fig wide"><img src="imagenes/local-1.webp" alt="El local"><p class="cp">Un rincón para quedarse</p><button class="cb" data-go="local"><img src="imagenes/galleta.webp" alt=""><span>Conocer el local</span></button></div></div>
+      <div class="st"><div class="sign"><small>Última estación</small>Tu mesa</div><div class="fig marc"><img src="imagenes/local-2.webp" alt="Mesa junto a la ventana"><p class="cp">Con la taza caliente</p><button class="cb" data-go="reservas"><img src="imagenes/galleta.webp" alt=""><span>Reservar mesa</span></button></div></div>
     </div>
-    <img class="train" decoding="async" src="imagenes/tren.png" alt=""><div class="map" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
-  </div>
+    <img class="train" decoding="async" src="imagenes/tren.webp" alt=""><i class="puff"></i><i class="puff"></i><i class="puff"></i><div class="map" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
+  </div></div>
 </section>
 
 <!-- ===== MENÚ ===== -->
-<section class="view" id="menu"><div class="wrap"><img class="dec" src="imagenes/trozo-2.png" alt="">
+<section class="view" id="menu"><div class="wrap"><img class="dec" src="imagenes/trozo-2.webp" alt="">
   <h2 class="rv">Nuestra <em>carta</em></h2><p class="lead rv">Café, bebidas y algo dulce para acompañar tu visita.</p>
   <div class="grid" id="grid"></div><p class="menu-footnote">Carta ilustrativa para esta demostración.</p>
 </div></section>
 
 <!-- ===== EL LOCAL ===== -->
-<section class="view" id="local"><div class="wrap"><img class="dec" src="imagenes/trozo-4.png" alt="">
+<section class="view" id="local"><div class="wrap"><img class="dec" src="imagenes/trozo-4.webp" alt="">
   <h2 class="rv">Un lugar para hacer una <em>pausa</em></h2><p class="lead rv">Un espacio acogedor para disfrutar un buen café, conversar y compartir algo rico.</p>
-  <div class="lgrid rv"><img class="a" loading="lazy" decoding="async" src="imagenes/local-1.jpg" alt=""><img class="b" loading="lazy" decoding="async" src="imagenes/local-2.jpg" alt=""><img class="c" loading="lazy" decoding="async" src="imagenes/local-3.jpg" alt=""></div>
+  <div class="lgrid rv"><img class="a" loading="lazy" decoding="async" src="imagenes/local-1.webp" alt=""><img class="b" loading="lazy" decoding="async" src="imagenes/local-2.webp" alt=""><img class="c" loading="lazy" decoding="async" src="imagenes/local-3.webp" alt=""></div>
   <div class="hor rv"><p><b>El ambiente</b>Un espacio para disfrutar de una buena bebida y compartir algo dulce.</p><p><b>Horarios</b>Consulta los horarios antes de organizar tu visita.</p><p><b>Ubicación</b>Confirma la ubicación directamente con el local.</p></div>
 </div></section>
 
 <!-- ===== RESERVAS ===== -->
-<section class="view" id="reservas"><div class="wrap two"><img class="dec" src="imagenes/trozo-3.png" alt="">
-  <div><h2 class="rv">Reserva <em>tu mesa</em></h2><p class="lead rv">Elige cuándo te gustaría venir y envía tu solicitud. El equipo confirmará la disponibilidad contigo.</p>
+<section class="view" id="reservas"><div class="wrap two"><img class="dec" src="imagenes/trozo-3.webp" alt="">
+  <div><h2 class="rv">Reserva <em>tu mesa</em></h2><p class="lead rv">Elige cuándo vienes y envía tu solicitud por WhatsApp.</p>
     <form class="rv" id="rsv" novalidate>
-      <label class="fld">Tu nombre<input id="rn" placeholder="Ej. María" autocomplete="name"></label>
-      <label class="fld">Tu celular<input id="rp" type="tel" inputmode="tel" placeholder="Ej. 71234567" autocomplete="tel"></label>
-      <div class="r2"><label class="fld">Fecha<input id="rd" type="date"></label><label class="fld">Hora preferida<input id="rh" type="time"></label></div>
+      <label class="fld"><span>Tu nombre</span><input id="rn" placeholder="Ej. María" autocomplete="given-name" enterkeyhint="next"></label>
+      <div class="fld"><span>¿Cuándo?</span>
+        <div class="chips" id="rq"><button type="button" data-d="0">Hoy</button><button type="button" data-d="1">Mañana</button></div>
+        <div class="r2"><input id="rd" type="date" aria-label="Fecha"><input id="rh" type="time" aria-label="Hora"></div></div>
       <div class="fld"><span>Personas</span><div class="step"><button type="button" id="pm" aria-label="Menos personas">−</button><output id="pc">2</output><button type="button" id="pp" aria-label="Más personas">+</button></div></div>
       <div class="fld"><span>¿Dónde te sientas?</span><div class="chips" id="rz"><button type="button" class="on" data-v="Sin preferencia">Sin preferencia</button><button type="button" data-v="Junto a la ventana">Junto a la ventana</button><button type="button" data-v="Cerca de la barra">Cerca de la barra</button></div></div>
-      <label class="fld">Nota (opcional)<input id="rt" placeholder="Ej. es un cumpleaños"></label>
-      <div class="sum" id="rs" aria-live="polite"></div>
-      <button class="cb" id="rb" type="submit" style="justify-self:start"><img src="imagenes/galleta.png" alt=""><span>Reservar por WhatsApp</span></button>
+      <label class="fld"><span>Nota <small>(opcional)</small></span><input id="rt" placeholder="Ej. es un cumpleaños" enterkeyhint="done"></label>
     </form></div>
-  <div class="info rv"><b>¿Tienes alguna consulta?</b><p>Escríbenos para consultar por el menú, los horarios o la ubicación.</p><a href="https://wa.me/59175506397" target="_blank" rel="noopener">Contactar al local</a><b>Reservas</b><p>Envía tu solicitud y el equipo confirmará la disponibilidad.</p></div>
+  <aside class="tk rv" aria-label="Resumen de tu reserva"><i class="stamp" id="stp">Enviada</i>
+    <div class="tk-h">Tu reserva</div><div class="tk-n" id="tkn">Tu nombre</div>
+    <div class="tk-r"><b id="tkd">Elige un día</b><span id="tkh">--:--</span></div>
+    <div class="tk-p"><span id="tkp">2 personas</span><span id="tkz">Sin preferencia</span></div><p class="tk-t" id="tkt"></p>
+    <button class="cb" id="rb" type="submit" form="rsv"><img src="imagenes/galleta.webp" alt=""><span>Reservar por WhatsApp</span></button>
+    <p class="tk-s" id="rs" aria-live="polite">Se abrirá WhatsApp con tu solicitud. Allí te confirman la disponibilidad.</p>
+    <a class="tk-q" id="tkq" href="https://wa.me/59175506397" target="_blank" rel="noopener">¿Solo una duda? Escríbenos</a></aside>
 </div></section>
 </main>
 <footer><span class="fb">La Chocolatería</span><span>© 2026 · Maqueta de demostración</span></footer>
@@ -336,8 +385,8 @@ const P=[['Café de la casa','Café recién preparado para disfrutar a cualquier
 ['Chocolate caliente','Una bebida cremosa para acompañar la pausa.',28,'cafe-2','50%'],
 ['Croissant de chocolate','Hojaldre dorado con relleno de chocolate.',22,'cafe-3','52%'],
 ['Brownie con helado','Un postre tibio con helado de vainilla.',35,'cafe-4','55%']];
-$('#grid').innerHTML=P.map((p,i)=>`<article class="card rv"><div class="im"><img loading="lazy" decoding="async" src="imagenes/${p[3]}.jpg" style="object-position:${p[4]} 50%" alt="${p[0]}"></div><div class="t"><small class="no">N.º 0${i+1}</small><h3>${p[0]}</h3><p>${p[1]}</p><span class="pr">Bs ${p[2]}</span></div></article>`).join('');
-$('#mini').innerHTML=P.map(p=>`<figure><img src="imagenes/${p[3]}.jpg" style="object-position:${p[4]} 50%" alt="${p[0]}"><figcaption class="tag">${p[0]}<b>Bs ${p[2]}</b></figcaption></figure>`).join('');
+$('#grid').innerHTML=P.map((p,i)=>`<article class="card rv"><div class="im"><img loading="lazy" decoding="async" src="imagenes/${p[3]}.webp" style="object-position:${p[4]} 50%" alt="${p[0]}"></div><div class="t"><small class="no">N.º 0${i+1}</small><h3>${p[0]}</h3><p>${p[1]}</p><span class="pr">Bs ${p[2]}</span></div></article>`).join('');
+$('#mini').innerHTML=P.map(p=>`<figure><img src="imagenes/${p[3]}.webp" style="object-position:${p[4]} 50%" alt="${p[0]}"><figcaption class="tag">${p[0]}<b>Bs ${p[2]}</b></figcaption></figure>`).join('');
 
 /* ----- Barra de chocolate: intro y transición entre pantallas ----- */
 const ov=$('#ov'),tn=$('#tn'),sk=$('#sk');let C,R,T=[],busy=true;
@@ -353,6 +402,7 @@ function reveal(k){return gsap.timeline({onComplete:()=>{ov.style.display='none'
 /* ----- Pantallas dentro del mismo index.html ----- */
 const V=['home','menu','local','reservas'];let cur='home';
 function show(n,anim=false){
+  if(typeof waLink==='function')waLink(n);
   $$('.view').forEach(v=>v.classList.toggle('on',v.id===n));
   $$('.dock .ck').forEach(b=>b.classList.toggle('on',b.dataset.go===n));
   cur=n;window.scrollTo({top:0,behavior:'auto'});
@@ -380,7 +430,7 @@ const hint=$('.hint'),au={p:0};
 let videoUnlocked=!coarse,videoUnlocking=false,unlockRequested=false;
 let videoSeeking=false,lastSeekAt=0,pendingVideoTime=0,seekFallback=null;
 const loadVideo=()=>{
-  if(!vid.getAttribute('src')&&vid.dataset.src){vid.src=vid.dataset.src;vid.load()}
+  if(!vid.getAttribute('src')&&vid.dataset.src){vid.src=innerWidth<861?'video-taza-m.mp4':vid.dataset.src;vid.load()}
 };
 const unlockVideo=()=>{
   unlockRequested=true;loadVideo();
@@ -424,7 +474,7 @@ gsap.ticker.add(()=>{
   const targetProgress=Math.max(au.p,tp);
   if(Math.abs(targetProgress-cp)>=.0004)cp+=(targetProgress-cp)*(coarse?.22:.1);
   pendingVideoTime=cp*dur;seekVideo();
-  bar.style.width=cp*100+'%';
+  bar.style.transform=`scaleX(${cp})`;
   const index=cp<.34?0:cp<.67?1:2;
   if(index!==ci){ci=index;caps.forEach((c,j)=>c.classList.toggle('on',j===index))}
   const visible=cp>.03;
@@ -453,6 +503,7 @@ if(!coarse&&!reduce){let tc=null;addEventListener('pointermove',e=>{const c=e.ta
 const mapb=$('.map b'),mapi=$$('.map i'),w=$('.world'),ruta=$('#ruta');
 function mp(p){if(mapb)mapb.style.left=p*100+'%';mapi.forEach((e,j)=>e.classList.toggle('on',p>=j/2-.01))}
 let trainTimeline=null;
+/* El pin lo hace el navegador (position:sticky): sin saltos en celular al subir o bajar. */
 function setupTrainJourney(){
   if(trainTimeline){trainTimeline.scrollTrigger?.kill();trainTimeline.kill();trainTimeline=null}
   gsap.set(w,{x:0});
@@ -460,8 +511,8 @@ function setupTrainJourney(){
   ruta.style.overflow='hidden';
   const distance=()=>Math.max(0,w.scrollWidth-innerWidth);
   trainTimeline=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{
-    trigger:ruta,start:'top top',end:()=>`+=${Math.round(innerHeight*(coarse?2.05:2.5))}`,
-    pin:true,scrub:coarse?.32:.6,anticipatePin:1,invalidateOnRefresh:true,
+    trigger:'#rwrap',start:'top top',end:'bottom bottom',
+    scrub:coarse?.25:.6,invalidateOnRefresh:true,
     onUpdate:self=>mp(self.progress)
   }})
   .to(w,{x:()=>-distance(),duration:1},0)
@@ -470,10 +521,12 @@ function setupTrainJourney(){
   .to('.sun',{x:()=>-distance()*.05,duration:1},0);
 }
 setupTrainJourney();
-let trainResizeTimer;
+/* Solo se reconstruye si cambia el ANCHO (girar el celular), no cuando la barra del navegador sube o baja. */
+let trainResizeTimer,lastW=innerWidth;
 addEventListener('resize',()=>{
+  if(Math.abs(innerWidth-lastW)<40)return;lastW=innerWidth;
   clearTimeout(trainResizeTimer);
-  trainResizeTimer=setTimeout(()=>{setupTrainJourney();ScrollTrigger.refresh()},180);
+  trainResizeTimer=setTimeout(()=>{setupTrainJourney();ScrollTrigger.refresh()},250);
 });
 
 /* ----- Fondo vivo: polvo de cacao, palabra gigante, adornos y migas de galleta ----- */
@@ -490,31 +543,55 @@ if(!reduce){
 function dripD(w,b,n,a,z){let d=`M0 0H${w}V${b}`,r=Math.random,g=w/n;for(let i=0;i<n;i++){const dw=10+r()*12,y=b+a+r()*(z-a),cx=w-g*(i+.5)+(r()-.5)*g*.5;d+=`H${cx+dw/2}V${y-dw/2}A${dw/2} ${dw/2} 0 0 1 ${cx-dw/2} ${y-dw/2}V${b}`}return d+'H0Z'}
 function mkDrip(el,h,b,a,z){const w=innerWidth;el.setAttribute('viewBox',`0 0 ${w} ${h}`);el.setAttribute('preserveAspectRatio','none');el.innerHTML=`<path d="${dripD(w,b,Math.max(6,Math.round(w/62)),a,z)}"/>`}
 mkDrip($('.hdrip'),70,14,12,44);
-/* ----- Reserva: valida y confirma ----- */
+/* ----- Reserva: ticket en vivo + mensaje a WhatsApp ----- */
 const WA='59175506397',DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-const rd=$('#rd'),rh=$('#rh'),pc=$('#pc'),rs=$('#rs'),rb=$('#rb span');let np=2,zona='Sin preferencia';
-const hoy=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
-const fecha=()=>{const [y,m,d]=rd.value.split('-').map(Number);return `${DIAS[new Date(y,m-1,d).getDay()]} ${d} de ${MES[m-1]}`};
-function horas(){}
-function resumen(){rs.textContent=rd.value&&rh.value?`${np} ${np>1?'personas':'persona'} · ${fecha()} · ${rh.value} · ${zona}`:'Elige fecha y hora para ver el resumen de tu reserva.'}
-rd.min=hoy();horas();resumen();rd.onchange=()=>{horas();resumen()};rh.onchange=resumen;
-const bmp=()=>{pc.classList.remove('bmp');void pc.offsetWidth;pc.classList.add('bmp')};
-$('#pm').onclick=()=>{np=Math.max(1,np-1);pc.textContent=np;bmp();resumen()};$('#pp').onclick=()=>{np=Math.min(12,np+1);pc.textContent=np;bmp();resumen()};
-$('#rz').onclick=e=>{const b=e.target.closest('button');if(!b)return;$$('#rz button').forEach(x=>x.classList.toggle('on',x===b));zona=b.dataset.v;resumen()};
+const rn=$('#rn'),rd=$('#rd'),rh=$('#rh'),rt=$('#rt'),pc=$('#pc'),rs=$('#rs'),rb=$('#rb'),rbs=$('#rb span');let np=2,zona='Sin preferencia';
+const iso=(o=0)=>new Date(Date.now()+o*864e5-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const fecha=()=>{if(!rd.value)return '';const [y,m,d]=rd.value.split('-').map(Number);return `${DIAS[new Date(y,m-1,d).getDay()]} ${d} de ${MES[m-1]}`};
+const bmp=el=>{el.classList.remove('bmp');void el.offsetWidth;el.classList.add('bmp')};
+function ticket(){
+  $('#tkn').textContent=rn.value.trim()||'Tu nombre';
+  const f=fecha();$('#tkd').textContent=f?f.charAt(0).toUpperCase()+f.slice(1):'Elige un día';
+  $('#tkh').textContent=rh.value||'--:--';
+  $('#tkp').textContent=`${np} ${np>1?'personas':'persona'}`;$('#tkz').textContent=zona;
+  const t=rt.value.trim();$('#tkt').textContent=t?`“${t}”`:'';
+  $$('#rq button').forEach(b=>b.classList.toggle('on',rd.value===iso(+b.dataset.d)));
+  if(/^Completa/.test(rs.textContent)&&rn.value.trim().length>=2&&rd.value&&rh.value)rs.textContent=RS0;
+}
+const RS0=rs.textContent;
+rd.min=iso(0);ticket();
+rn.oninput=rt.oninput=ticket;rd.onchange=()=>{bmp($('#tkd'));ticket()};rh.onchange=()=>{bmp($('#tkh'));ticket()};
+$('#rq').onclick=e=>{const b=e.target.closest('button');if(!b)return;rd.value=iso(+b.dataset.d);rd.classList.remove('bad');bmp($('#tkd'));ticket()};
+$('#pm').onclick=()=>{np=Math.max(1,np-1);pc.textContent=np;bmp(pc);ticket()};$('#pp').onclick=()=>{np=Math.min(12,np+1);pc.textContent=np;bmp(pc);ticket()};
+$('#rz').onclick=e=>{const b=e.target.closest('button');if(!b)return;$$('#rz button').forEach(x=>x.classList.toggle('on',x===b));zona=b.dataset.v;ticket()};
 $('#rsv').addEventListener('input',e=>e.target.classList.remove('bad'));
-$('#rsv').onsubmit=e=>{e.preventDefault();const n=$('#rn'),p=$('#rp'),bad=[[n,n.value.trim().length<2],[p,p.value.replace(/\D/g,'').length<7],[rd,!rd.value],[rh,!rh.value]].filter(x=>x[1]).map(x=>x[0]);
-  [n,p,rd,rh].forEach(x=>x.classList.toggle('bad',bad.includes(x)));
-  if(bad.length){bad[0].focus();rs.textContent='Revisa los campos marcados en rojo.';return}
-  const t=$('#rt').value.trim(),msg=`Hola, quiero reservar en La Chocolatería:\n• Nombre: ${n.value.trim()}\n• Celular: ${p.value.trim()}\n• Fecha: ${fecha()}\n• Hora: ${rh.value}\n• Personas: ${np}\n• Mesa: ${zona}`+(t?`\n• Nota: ${t}`:''),u=`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
-  if(!window.open(u,'_blank','noopener'))location.href=u;
-  rs.textContent='Se abrió WhatsApp con tu reserva. Envía el mensaje para confirmarla.';rb.textContent='¡Listo!';setTimeout(()=>rb.textContent='Reservar por WhatsApp',3000)}
-/* ----- Arranque: intro con la barra de chocolate (una vez por sesión) ----- */
-let seen=false;try{seen=!!sessionStorage.getItem('choco')}catch(e){}
+function confetti(el){if(reduce)return;const r=el.getBoundingClientRect();
+  for(let i=0;i<10;i++){const c=document.createElementNS('http://www.w3.org/2000/svg','svg');c.setAttribute('viewBox','0 0 64 64');c.classList.add('cf');c.innerHTML='<use href="#d-bean"/>';
+    c.style.cssText=`left:${r.left+r.width/2-11}px;top:${r.top+r.height/2-11}px;--x:${(Math.random()-.5)*240}px;--y:${-70-Math.random()*150}px;--r:${(Math.random()-.5)*540}deg`;
+    document.body.appendChild(c);setTimeout(()=>c.remove(),1200)}}
+$('#rsv').onsubmit=e=>{e.preventDefault();
+  const bad=[[rn,rn.value.trim().length<2],[rd,!rd.value],[rh,!rh.value]].filter(x=>x[1]).map(x=>x[0]);
+  [rn,rd,rh].forEach(x=>x.classList.toggle('bad',bad.includes(x)));
+  if(bad.length){bad[0].focus();rs.textContent='Completa los campos marcados en rojo.';return}
+  const t=rt.value.trim(),msg=`Hola, quiero reservar en La Chocolatería:\n• Nombre: ${rn.value.trim()}\n• Fecha: ${fecha()}\n• Hora: ${rh.value}\n• Personas: ${np}\n• Mesa: ${zona}`+(t?`\n• Nota: ${t}`:'');
+  const a=document.createElement('a');a.href=`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();
+  rs.textContent='Se abrió WhatsApp con tu reserva. Envía el mensaje para dejarla lista.';rbs.textContent='¡Enviada!';$('#stp').classList.add('on');confetti(rb);
+  setTimeout(()=>{rbs.textContent='Reservar por WhatsApp';$('#stp').classList.remove('on')},3500)};
+
+/* ----- WhatsApp: mensaje según la pantalla + burbuja + vibración al tocar ----- */
+const wa=$('#wa'),wat=$('#wat'),tkq=$('#tkq');
+const WAM={home:'Hola, quiero hacer una consulta en La Chocolatería',menu:'Hola, quiero consultar por la carta de La Chocolatería',local:'Hola, quiero saber más del local de La Chocolatería',reservas:'Hola, quiero consultar antes de reservar en La Chocolatería'};
+function waLink(n){const u=`https://wa.me/${WA}?text=${encodeURIComponent(WAM[n||cur])}`;wa.href=u;tkq.href=u;if(n==='reservas')wat.classList.remove('on')}
+let tipT;const tip=()=>{if(cur==='reservas')return;wat.classList.add('on');clearTimeout(tipT);tipT=setTimeout(()=>wat.classList.remove('on'),6500)};
+setTimeout(tip,7000);wa.addEventListener('click',()=>wat.classList.remove('on'));
+document.addEventListener('click',e=>{if(navigator.vibrate&&e.target.closest('.cb,.ck,.chips button,.step button'))navigator.vibrate(8)},{passive:true});
+/* ----- Arranque: intro con la barra de chocolate (se ve cada vez que abres la página) ----- */
 const h0=location.hash.slice(1);show(V.includes(h0)?h0:'home');
-if(reduce||seen){ov.style.display=tn.style.display=sk.style.display='none';busy=false}
-else{try{sessionStorage.setItem('choco','1')}catch(e){}build();document.body.classList.add('lock');gsap.set(T,{opacity:1});let done=false;
-  const end=()=>{if(done)return;done=true;sk.style.display='none';reveal(1);gsap.from(`#${cur} .rv`,{y:50,opacity:0,duration:1,stagger:.1,ease:'power3.out',delay:.9})};
-  const tl=gsap.timeline().fromTo(tn,{opacity:0,scale:.94},{opacity:1,scale:1,duration:.9,ease:'power2.out'}).add(end,'+=.35');
-  sk.onclick=()=>{tl.kill();end()}}
+if(reduce){ov.style.display=tn.style.display=sk.style.display='none';busy=false}
+else{build();document.body.classList.add('lock');gsap.set(T,{opacity:1});let done=false;
+  const end=()=>{if(done)return;done=true;sk.style.display='none';reveal(.8);gsap.from(`#${cur} .rv`,{y:40,opacity:0,duration:.9,stagger:.08,ease:'power3.out',delay:.6})};
+  const tl=gsap.timeline().fromTo(tn,{opacity:0,scale:.94},{opacity:1,scale:1,duration:.8,ease:'power2.out'}).add(end,'+=.3');
+  sk.onclick=()=>{tl.kill();end()};
+  setTimeout(end,4500);setTimeout(()=>{busy=false;document.body.classList.remove('lock')},7000)}
 </script>
 </body></html>
