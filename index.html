@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#20100a">
 <title>La Chocolatería</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,800;1,9..144,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:ital,wght@0,500;0,700;0,800;1,500&display=swap" rel="stylesheet">
 <style>
 /* ===== COLORES (solo 4): cámbialos aquí ===== */
 :root{--cacao:#20100a;--claro:#3a1d12;--crema:#f4e6d0;--car:#d9823b;--serif:'Fraunces',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
@@ -27,7 +27,7 @@ footer{padding:40px 6vw 110px;border-top:1px solid rgba(244,230,208,.12);display
 .ck{width:84px;height:84px}.ck span{font-size:.68rem;padding:.35em .7em}
 .cb{width:150px;height:150px}
 .cb:nth-child(odd){transform:rotate(-6deg)}.cb:nth-child(even){transform:rotate(5deg)}
-.ck:hover,.cb:hover{transform:rotate(-10deg) scale(1.12)}
+@media(hover:hover){.ck:hover,.cb:hover{transform:rotate(-10deg) scale(1.12)}}
 .ck:active,.cb:active{transform:scale(.92)}
 .ck.on{transform:scale(1.1)}.ck.on span{background:var(--car);color:#20100a}
 .cr{position:fixed;z-index:1100;border-radius:40%;background:#6b3a22;pointer-events:none}
@@ -37,8 +37,8 @@ footer{padding:40px 6vw 110px;border-top:1px solid rgba(244,230,208,.12);display
 body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(60vw 50vh at 90% 8%,rgba(217,130,59,.16),transparent),radial-gradient(60vw 60vh at 5% 95%,rgba(58,29,18,.9),transparent)}
 body::after{content:"";position:fixed;inset:0;z-index:900;pointer-events:none;opacity:.07;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 #dust{position:fixed;inset:0;pointer-events:none;overflow:hidden}
-#dust i{position:absolute;bottom:-12px;border-radius:50%;background:var(--car);animation:up linear infinite}
-@keyframes up{0%{transform:translate(0,0);opacity:0}12%{opacity:.55}100%{transform:translate(40px,-108vh);opacity:0}}
+#dust svg{position:absolute;bottom:-130px;width:46px;height:120px;fill:none;stroke:var(--crema);stroke-width:3;stroke-linecap:round;opacity:0;transform-origin:50% 100%;animation:steam linear infinite;will-change:transform,opacity}
+@keyframes steam{0%{transform:translate(0,0) scaleX(1);opacity:0}15%{opacity:.2}60%{opacity:.12}100%{transform:translate(30px,-112vh) scaleX(1.6);opacity:0}}
 .wrap{position:relative;z-index:1}
 .dec{position:absolute;right:4vw;top:110px;width:16vw;max-width:240px;filter:drop-shadow(0 14px 18px rgba(0,0,0,.5));pointer-events:none;z-index:0}
 
@@ -73,12 +73,12 @@ body::after{content:"";position:fixed;inset:0;z-index:900;pointer-events:none;op
 .ground{position:absolute;left:0;right:0;bottom:0;height:19vh;background:linear-gradient(#2a140c,#140805)}
 .world{position:absolute;left:0;top:0;height:100%;display:flex}
 .st{width:100vw;height:100%;flex:none;position:relative;display:flex;align-items:center;justify-content:center;gap:4vw;padding:15vh 6vw 25vh}
-.sign{position:absolute;top:0;left:8vw;z-index:4;padding:48px 28px 20px;background:linear-gradient(#3a1d12,#2a140c);border:2px solid var(--car);border-top:0;border-radius:0 0 18px 18px;font:700 clamp(1.5rem,2.8vw,2.6rem)/1.05 var(--serif);box-shadow:0 14px 30px rgba(0,0,0,.5);transform-origin:50% 0;animation:sw 4s ease-in-out infinite alternate}
+.sign{position:absolute;top:0;left:26vw;z-index:4;padding:48px 28px 20px;background:linear-gradient(#3a1d12,#2a140c);border:2px solid var(--car);border-top:0;border-radius:0 0 18px 18px;font:700 clamp(1.5rem,2.8vw,2.6rem)/1.05 var(--serif);box-shadow:0 14px 30px rgba(0,0,0,.5);transform-origin:50% 0;animation:sw 4s ease-in-out infinite alternate}
 .sign small{display:block;margin-bottom:4px;font:italic 500 .95rem var(--serif);color:var(--car)}
 @keyframes sw{from{transform:rotate(-1.6deg)}to{transform:rotate(1.6deg)}}
 .rail{position:absolute;left:0;right:0;bottom:17vh;height:10px;border-radius:5px;background:linear-gradient(#7a4426,#3a1d12)}
 .rail::before{content:"";position:absolute;left:0;right:0;top:12px;height:14px;background:repeating-linear-gradient(90deg,#4a2a18 0 14px,transparent 14px 48px)}
-.train{position:absolute;left:5vw;bottom:calc(17vh + 4px);width:min(36vw,480px);z-index:5;filter:drop-shadow(0 10px 12px rgba(0,0,0,.6))}
+.train{position:absolute;left:5vw;bottom:calc(17vh + 4px);width:min(36vw,480px);z-index:5;pointer-events:none;filter:drop-shadow(0 10px 12px rgba(0,0,0,.6));animation:rt .26s ease-in-out infinite alternate}@keyframes rt{to{transform:translateY(-2.5px)}}
 .mini{display:flex;gap:18px;align-items:flex-start}
 .mini figure{position:relative;width:clamp(130px,15.5vw,230px)}.mini figure:nth-child(even){margin-top:56px}
 .mini img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:18px;box-shadow:0 16px 30px rgba(0,0,0,.55)}
@@ -89,8 +89,8 @@ body::after{content:"";position:fixed;inset:0;z-index:900;pointer-events:none;op
 .wide::after{content:"";position:absolute;inset:0;border-radius:22px;background:linear-gradient(transparent 55%,rgba(20,8,4,.78));pointer-events:none}
 .marc{height:54vh;aspect-ratio:4/5}.marc>img{border-radius:999px 999px 24px 24px}
 .cp{position:absolute;z-index:2;left:24px;bottom:20px;font:italic 600 clamp(1.1rem,1.9vw,1.7rem) var(--serif);color:var(--crema);text-shadow:0 2px 12px rgba(0,0,0,.8)}
-.fig .cb{position:absolute;z-index:3;right:-34px;bottom:-44px}
-.st>.cb{position:absolute;right:4vw;bottom:21vh}
+.fig .cb{position:absolute;z-index:8;right:-34px;bottom:-44px}
+.st>.cb{position:absolute;z-index:8;right:4vw;bottom:21vh}
 
 /* ===== MENÚ / LOCAL / RESERVAS ===== */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px}
@@ -110,21 +110,34 @@ select option{color:#222}
 .info{background:var(--claro);border-radius:22px;padding:36px}.info b{display:block;font:700 1.3rem var(--serif);color:var(--car);margin-top:22px}.info b:first-child{margin-top:0}
 
 @media(max-width:860px){
-  .dock{top:auto;bottom:6px;right:50%;transform:translateX(50%);gap:0;padding:2px 8px;border-radius:70px;background:rgba(32,16,10,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-  .ck{width:66px;height:66px}.ck span{font-size:.6rem}
+  .dock{top:auto;bottom:calc(6px + env(safe-area-inset-bottom));right:50%;transform:translateX(50%);gap:0;padding:2px 8px;border-radius:70px;background:rgba(32,16,10,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  .ck{width:68px;height:68px}.ck span{font-size:.66rem}
   .cb{width:112px;height:112px}.cb span{font-size:.78rem}
-  .hl{left:6vw;right:6vw;width:auto;top:auto;bottom:15vh;transform:none}h1{font-size:2.2rem}.cap{margin-top:20px}.acts{margin-top:10px}
-  .bgword{font-size:34vw}.glow{right:auto;left:-20vw;width:140vw}
-  .arch{right:auto;left:50%;transform:translateX(-50%);top:8vh;height:40vh}
-  .f1{width:26vw;right:2vw;top:8vh}.f2{width:24vw;right:auto;left:2vw;top:32vh;bottom:auto}.f3{width:26vw;right:2vw;bottom:auto;top:35vh}.f4{display:none}
-  .st{flex-direction:column;gap:14px;padding:17vh 6vw 27vh}
-  .sign{left:6vw;padding:36px 18px 12px;font-size:1.3rem}
-  .mini{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:70vw}.mini figure{width:auto}.mini figure:nth-child(even){margin-top:0}.tag{font-size:.66rem;padding:5px 7px}.tag b{font-size:.85rem}
-  .wide{width:84vw}.marc{height:32vh}.fig .cb{right:-12px;bottom:-40px}.st>.cb{right:3vw;bottom:23vh}
-  .train{width:58vw;bottom:calc(20vh + 4px)}.rail{bottom:20vh}
+  .hl{position:relative;left:auto;right:auto;top:auto;bottom:auto;transform:none;width:auto}h1{font-size:clamp(1.75rem,8vw,2.2rem)}.cap{margin-top:12px;font-size:1.1rem}.acts{margin:6px 0 0 -8px}.acts .cb{width:100px;height:100px}.acts .cb span{font-size:.7rem}
+  .bgword{font-size:30vw;top:34%}.glow{right:auto;left:-20vw;width:140vw}
+  #hero{height:230vh;height:230svh}.pin{height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:64px 6vw calc(86px + env(safe-area-inset-bottom))}.arch{position:relative;right:auto;left:auto;top:auto;transform:none;flex:1 1 0;min-height:110px;height:auto;aspect-ratio:auto;width:min(76vw,330px);margin:0 auto 14px;border-radius:999px 999px 22px 22px;box-shadow:0 18px 40px rgba(0,0,0,.55),0 0 0 2px rgba(217,130,59,.55),0 0 0 8px var(--cacao)}
+  .f1{width:24vw;right:2vw;top:12svh}.f2{width:22vw;right:auto;left:2vw;top:30svh;bottom:auto}.f3{width:24vw;right:2vw;bottom:auto;top:34svh}.f4{display:none}
+  #ruta{height:100vh;height:100svh}.st{flex-direction:column;gap:12px;padding:15svh 6vw 33svh}
+  .sign{left:auto;right:6vw;padding:34px 16px 10px;font-size:1.2rem}
+  .mini{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:min(80vw,40svh)}.mini figure{width:auto}.mini figure:nth-child(even){margin-top:0}.mini figure:nth-child(n+3){display:none}.tag{font-size:.68rem;padding:5px 7px}.tag b{font-size:.86rem}
+  .wide{width:84vw}.marc{height:30svh}.fig .cb{width:92px;height:92px;right:-10px;bottom:-34px}.st>.cb{position:relative;right:auto;bottom:auto;width:92px;height:92px}
+  .train{width:56vw;bottom:calc(20svh + 4px)}.rail{bottom:20svh}.ground{height:20svh}
   .two{grid-template-columns:1fr}.lgrid .a,.lgrid .b,.lgrid .c{grid-column:1/-1;grid-row:auto;min-height:0;aspect-ratio:4/3}
   .wrap{padding-top:110px}.dec{width:24vw;top:80px}
 }
+
+/* ===== LOGO: placa de barra de chocolate con grano de cacao ===== */
+.logo{position:fixed;z-index:60;top:12px;left:2.5vw;display:flex;align-items:center;gap:10px;padding:8px 20px 8px 12px;border-radius:14px;text-decoration:none;color:var(--crema);background:linear-gradient(#4a2517,#2a140c);border:1px solid rgba(217,130,59,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 20px rgba(0,0,0,.55);overflow:hidden;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.logo::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent calc(100% - 1px),rgba(0,0,0,.35) 0) 0 0/34px 100%,linear-gradient(transparent calc(50% - 1px),rgba(0,0,0,.3) 0,rgba(255,255,255,.07) calc(50% + 1px),transparent 0)}
+.logo svg{position:relative;width:30px;height:30px;flex:none;transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.logo span{position:relative;display:flex;flex-direction:column;line-height:1}
+.logo small{font:italic 500 .85rem var(--serif);color:var(--car);margin-bottom:2px}
+.logo b{font:800 1.45rem/1 var(--serif);letter-spacing:-.01em;text-shadow:0 2px 0 rgba(0,0,0,.5)}
+@media(hover:hover){.logo:hover{transform:rotate(-2deg) scale(1.04)}.logo:hover svg{transform:rotate(25deg)}}
+.dec{animation:dd 6s ease-in-out infinite alternate}@keyframes dd{to{transform:translateY(8%) rotate(14deg)}}
+button{-webkit-tap-highlight-color:transparent}
+@media(pointer:coarse){body::after{display:none}.fl{filter:none}}
+@media(max-width:860px){.logo{top:10px;left:10px;padding:6px 14px 6px 9px;gap:7px}.logo svg{width:24px;height:24px}.logo b{font-size:1.1rem}.logo small{font-size:.72rem}}
 </style></head>
 <body>
 <div id="ov"></div><div id="tn">La<br>Chocolatería</div><button id="sk">Saltar</button>
@@ -132,20 +145,21 @@ select option{color:#222}
   <button class="ck on" data-go="home"><img src="imagenes/galleta.png" alt=""><span>Inicio</span></button><button class="ck" data-go="menu"><img src="imagenes/galleta.png" alt=""><span>Menú</span></button>
   <button class="ck" data-go="local"><img src="imagenes/galleta.png" alt=""><span>El local</span></button><button class="ck" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservas</span></button>
 </nav>
+<a class="logo" href="#home" aria-label="La Chocolatería, inicio"><svg viewBox="0 0 32 32" aria-hidden="true"><ellipse cx="16" cy="16" rx="9.5" ry="13.5" transform="rotate(32 16 16)" fill="#d9823b"/><path d="M9.5 8.5c5 3.5 5 8 6.5 11.5s3.5 3 6.5 4" fill="none" stroke="#2a140c" stroke-width="2" stroke-linecap="round"/></svg><span><small>La</small><b>Chocolatería</b></span></a>
 <div id="dust"></div>
 
 <main>
 <!-- ===== INICIO ===== -->
 <section class="view on" id="home">
   <div id="hero"><div class="pin">
-    <div class="glow"></div><div class="bgword" aria-hidden="true">Chocolate</div>
+    <div class="glow"></div><div class="bgword" aria-hidden="true">Sin prisa</div>
     <div class="hl">
       <h1 class="rv">Chocolate que se sirve <em>despacio</em></h1>
       <p class="cap rv"><span class="on">Cacao molido a mano</span><span>Fundido sin prisa</span><span>Servido para ti</span></p>
       <div class="acts rv"><button class="cb" data-go="menu"><img src="imagenes/galleta.png" alt=""><span>Ver el menú</span></button><button class="cb" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservar mesa</span></button></div>
     </div>
     <!-- el video avanza con tu scroll: el chocolate baja hasta llenar la taza -->
-    <div class="arch"><video id="vid" src="video-taza.mp4" poster="imagenes/poster.jpg" muted playsinline preload="auto"></video></div>
+    <div class="arch"><video id="vid" data-src="video-taza.mp4" poster="imagenes/poster.jpg" muted playsinline preload="auto" disablepictureinpicture></video></div>
     <img class="fl f1" src="imagenes/trozo-1.png" alt=""><img class="fl f2" src="imagenes/trozo-2.png" alt="">
     <img class="fl f3" src="imagenes/trozo-3.png" alt=""><img class="fl f4" src="imagenes/trozo-4.png" alt="">
     <div class="bar"></div>
@@ -161,7 +175,7 @@ select option{color:#222}
       <div class="st"><div class="sign"><small>Estación 2</small>El local</div><div class="fig wide"><img src="imagenes/local-1.jpg" alt="El local"><p class="cp">Un rincón para quedarse</p><button class="cb" data-go="local"><img src="imagenes/galleta.png" alt=""><span>Conocer el local</span></button></div></div>
       <div class="st"><div class="sign"><small>Última estación</small>Tu mesa</div><div class="fig marc"><img src="imagenes/local-2.jpg" alt="Mesa junto a la ventana"><p class="cp">Con la taza caliente</p><button class="cb" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservar mesa</span></button></div></div>
     </div>
-    <img class="train" src="imagenes/tren.png" alt="">
+    <img class="train" decoding="async" src="imagenes/tren.png" alt="">
   </div>
 </section>
 
@@ -174,7 +188,7 @@ select option{color:#222}
 <!-- ===== EL LOCAL ===== -->
 <section class="view" id="local"><div class="wrap"><img class="dec" src="imagenes/trozo-4.png" alt="">
   <h2 class="rv">Nuestro <em>local</em></h2><p class="lead rv">Madera oscura, cobre y una barra abierta. Un rincón para quedarse la tarde entera.</p>
-  <div class="lgrid rv"><img class="a" src="imagenes/local-1.jpg" alt=""><img class="b" src="imagenes/local-2.jpg" alt=""><img class="c" src="imagenes/local-3.jpg" alt=""></div>
+  <div class="lgrid rv"><img class="a" loading="lazy" decoding="async" src="imagenes/local-1.jpg" alt=""><img class="b" loading="lazy" decoding="async" src="imagenes/local-2.jpg" alt=""><img class="c" loading="lazy" decoding="async" src="imagenes/local-3.jpg" alt=""></div>
   <div class="hor rv"><p><b>Lunes a sábado</b>8:00 a 21:00</p><p><b>Domingo</b>9:00 a 19:00</p><p><b>Dirección</b>Av. Arce 2345, Sopocachi, La Paz</p></div>
 </div></section>
 
@@ -183,7 +197,7 @@ select option{color:#222}
   <div><h2 class="rv">Reserva <em>tu mesa</em></h2><p class="lead rv">Cuéntanos cuándo vienes y te guardamos el mejor lugar.</p>
     <form class="rv" onsubmit="return false"><input placeholder="Tu nombre" aria-label="Nombre"><input type="date" aria-label="Fecha">
       <select aria-label="Personas"><option>2 personas</option><option>3 a 4 personas</option><option>5 o más</option></select>
-      <button class="cb" type="button" style="justify-self:start" onclick="this.querySelector('span').textContent='¡Reservado!'"><img src="imagenes/galleta.png" alt=""><span>Confirmar reserva</span></button></form></div>
+      <button class="cb" type="button" style="justify-self:start" onclick="reservar(this)"><img src="imagenes/galleta.png" alt=""><span>Confirmar reserva</span></button></form></div>
   <div class="info rv"><b>Dirección</b>Av. Arce 2345, Sopocachi, La Paz<b>Horarios</b>Lunes a sábado, 8:00 a 21:00<br>Domingo, 9:00 a 19:00<b>Redes</b>@lachocolateria.bo</div>
 </div></section>
 </main>
@@ -193,20 +207,20 @@ select option{color:#222}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-gsap.registerPlugin(ScrollTrigger);
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,coarse=matchMedia('(pointer:coarse)').matches;
+gsap.registerPlugin(ScrollTrigger);ScrollTrigger.config({ignoreMobileResize:true});
 
 /* ----- Productos (menú y primera estación) ----- */
 const P=[['Chocolate caliente clásico','Cacao espeso con crema batida y canela.',28,'cafe-1','60%'],
 ['Brownie con helado','Tibio e intenso, con helado de vainilla.',35,'cafe-2','50%'],
 ['Croissant de chocolate','Hojaldre dorado con chocolate negro fundido.',22,'cafe-3','52%'],
 ['Fresas con chocolate','Fresas frescas bañadas en chocolate tibio.',32,'cafe-4','55%']];
-$('#grid').innerHTML=P.map(p=>`<article class="card rv"><div class="im"><img src="imagenes/${p[3]}.jpg" style="object-position:${p[4]} 50%" alt="${p[0]}"></div><div class="t"><h3>${p[0]}</h3><p>${p[1]}</p><span class="pr">Bs ${p[2]}</span></div></article>`).join('');
+$('#grid').innerHTML=P.map(p=>`<article class="card rv"><div class="im"><img loading="lazy" decoding="async" src="imagenes/${p[3]}.jpg" style="object-position:${p[4]} 50%" alt="${p[0]}"></div><div class="t"><h3>${p[0]}</h3><p>${p[1]}</p><span class="pr">Bs ${p[2]}</span></div></article>`).join('');
 $('#mini').innerHTML=P.map(p=>`<figure><img src="imagenes/${p[3]}.jpg" style="object-position:${p[4]} 50%" alt="${p[0]}"><figcaption class="tag">${p[0]}<b>Bs ${p[2]}</b></figcaption></figure>`).join('');
 
 /* ----- Barra de chocolate: intro y transición entre pantallas ----- */
 const ov=$('#ov'),tn=$('#tn'),sk=$('#sk');let C,R,T=[],busy=true;
-function build(){C=innerWidth<860?4:8;R=innerWidth<860?8:5;
+function build(){C=innerWidth<860?3:6;R=innerWidth<860?6:4;
   ov.style.gridTemplateColumns=`repeat(${C},1fr)`;ov.style.gridTemplateRows=`repeat(${R},1fr)`;ov.innerHTML='';T=[];
   for(let r=0;r<R;r++)for(let c=0;c<C;c++){const t=document.createElement('i');
     t.style.backgroundSize=`${C*100}% ${R*100}%`;t.style.backgroundPosition=`${c/(C-1)*100}% ${r/(R-1)*100}%`;ov.appendChild(t);T.push(t)}}
@@ -233,47 +247,54 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b
 addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(V.includes(h)&&h!==cur)go(h,false)});
 
 /* ----- Inicio: video controlado por el scroll ----- */
-const vid=$('#vid'),caps=$$('.cap span'),bar=$('.bar');let dur=8,tp=0,cp=0;const au={p:0};
+const vid=$('#vid'),caps=$$('.cap span'),bar=$('.bar');let dur=8,tp=0,cp=0,ci=-1,sk2=false;const au={p:0};
+vid.addEventListener('seeked',()=>sk2=false);setInterval(()=>sk2=false,400); /* una sola búsqueda a la vez: evita que el video se trabe */
+const lv=()=>{if(!vid.src)vid.src=vid.dataset.src};addEventListener('load',lv);setTimeout(lv,2500); /* el video baja después de lo importante */
 vid.addEventListener('loadedmetadata',()=>dur=vid.duration);
-if(reduce){au.p=.98;$('#hero').style.height='100vh'}else gsap.to(au,{p:.12,duration:3.4,delay:3.4,ease:'power2.inOut'}); /* arranca solo; el resto lo mueves tú */
+if(reduce){au.p=.98;$('#hero').style.height='100vh'}else gsap.to(au,{p:.12,duration:3.4,delay:2.4,ease:'power2.inOut'}); /* arranca solo; el resto lo mueves tú */
 ScrollTrigger.create({trigger:'#hero',start:'top top',end:'bottom bottom',onUpdate:s=>tp=s.progress});
 gsap.ticker.add(()=>{if(cur!=='home')return;
-  cp+=(Math.max(au.p,tp)-cp)*.1;
-  if(vid.readyState>1&&Math.abs(vid.currentTime-cp*dur)>.012)vid.currentTime=Math.min(cp*dur,dur-.05);
-  bar.style.width=cp*100+'%';const i=cp<.34?0:cp<.67?1:2;caps.forEach((c,j)=>c.classList.toggle('on',j===i))});
+  const tg=Math.max(au.p,tp);if(Math.abs(tg-cp)<.0004)return;cp+=(tg-cp)*.1;
+  if(!sk2&&vid.readyState>1&&Math.abs(vid.currentTime-cp*dur)>(coarse?.06:.02)){sk2=true;vid.currentTime=Math.min(cp*dur,dur-.05)}
+  bar.style.width=cp*100+'%';const i=cp<.34?0:cp<.67?1:2;if(i!==ci){ci=i;caps.forEach((c,j)=>c.classList.toggle('on',j===i))}});
 
 /* trozos de chocolate: flotan, giran al bajar y siguen al mouse */
 const fl=$$('.fl');
-fl.forEach((el,i)=>{gsap.to(el,{yPercent:i%2?-7:7,duration:2.4+i*.4,repeat:-1,yoyo:true,ease:'sine.inOut'});
+fl.forEach((el,i)=>{if(!coarse)gsap.to(el,{yPercent:i%2?-7:7,duration:2.4+i*.4,repeat:-1,yoyo:true,ease:'sine.inOut'});
   gsap.to(el,{rotation:(i%2?-1:1)*70,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom bottom',scrub:true}})});
-if(matchMedia('(pointer:fine)').matches&&!reduce)addEventListener('pointermove',e=>{const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;
-  fl.forEach((el,i)=>gsap.to(el,{x:x*(i+1)*-26,y:y*(i+1)*-22,duration:1.2,ease:'power2.out',overwrite:'auto'}))});
+if(matchMedia('(pointer:fine)').matches&&!reduce){const qx=fl.map(el=>gsap.quickTo(el,'x',{duration:1.2,ease:'power2.out'})),qy=fl.map(el=>gsap.quickTo(el,'y',{duration:1.2,ease:'power2.out'}));
+  addEventListener('pointermove',e=>{if(cur!=='home')return;const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;fl.forEach((el,i)=>{qx[i](x*(i+1)*-26);qy[i](y*(i+1)*-22)})},{passive:true})}
 
 /* ----- Recorrido: el tren avanza y el paisaje se mueve con profundidad ----- */
 const w=$('.world');
 if(reduce)$('#ruta').style.overflowX='auto';
 else{const dx=()=>-(w.scrollWidth-innerWidth);
-  gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'#ruta',start:'top top',end:'+=250%',pin:true,scrub:.6,invalidateOnRefresh:true}})
-    .to(w,{x:dx},0).to('.h-far',{x:()=>dx()*.2},0).to('.h-mid',{x:()=>dx()*.45},0).to('.sun',{x:()=>dx()*.06},0);
-  gsap.to('.train',{y:-2.5,duration:.13,repeat:-1,yoyo:true,ease:'sine.inOut'})}
+  gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'#ruta',start:'top top',end:()=>innerWidth<860?'+=170%':'+=250%',pin:true,scrub:.6,invalidateOnRefresh:true}})
+    .to(w,{x:dx},0).to('.h-far',{x:()=>dx()*.2},0).to('.h-mid',{x:()=>dx()*.45},0).to('.sun',{x:()=>dx()*.06},0)}
 
 /* ----- Fondo vivo: polvo de cacao, palabra gigante, adornos y migas de galleta ----- */
 if(!reduce){
-  const d=$('#dust');for(let i=0;i<26;i++){const e=document.createElement('i'),z=gsap.utils.random(3,8);
-    e.style.cssText=`left:${gsap.utils.random(0,100)}%;width:${z}px;height:${z}px;animation-duration:${gsap.utils.random(9,20)}s;animation-delay:-${gsap.utils.random(0,20)}s`;d.appendChild(e)}
+  const d=$('#dust'),W='<svg viewBox="0 0 46 120" aria-hidden="true"><path d="M20 118C4 96 36 80 22 58S34 18 24 2"/></svg>';
+  d.innerHTML=W.repeat(coarse?4:7); /* vapor de chocolate caliente que sube */
+  [...d.children].forEach(e=>{e.style.cssText=`left:${gsap.utils.random(2,96)}%;animation-duration:${gsap.utils.random(14,26)}s;animation-delay:-${gsap.utils.random(0,24)}s`});
   gsap.to('.bgword',{xPercent:-10,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom bottom',scrub:true}});
-  gsap.to('.dec',{yPercent:8,rotation:'+=14',duration:3,repeat:-1,yoyo:true,ease:'sine.inOut'});
   document.addEventListener('click',e=>{const b=e.target.closest('.cb,.ck');if(!b)return;const r=b.getBoundingClientRect();
     for(let i=0;i<8;i++){const c=document.createElement('i'),z=gsap.utils.random(4,9);c.className='cr';
       c.style.cssText=`left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;width:${z}px;height:${z}px`;document.body.appendChild(c);
       gsap.to(c,{x:gsap.utils.random(-70,70),y:gsap.utils.random(-60,80),rotation:gsap.utils.random(-180,180),opacity:0,duration:.8,ease:'power2.out',onComplete:()=>c.remove()})}})}
 
-/* ----- Arranque: intro con la barra de chocolate ----- */
+/* ----- Reserva: valida y confirma ----- */
+const fd=$('input[type=date]');if(fd)fd.min=new Date().toISOString().slice(0,10);
+function reservar(b){const f=b.closest('form'),n=f.querySelector('input'),d=f.querySelector('input[type=date]'),t=b.querySelector('span'),o='Confirmar reserva';
+  if(!n.value.trim()||!d.value){(n.value.trim()?d:n).focus();t.textContent='Falta un dato';setTimeout(()=>t.textContent=o,1600);return}
+  t.textContent='¡Reservado!'}
+/* ----- Arranque: intro con la barra de chocolate (una vez por sesión) ----- */
+let seen=false;try{seen=!!sessionStorage.getItem('choco')}catch(e){}
 const h0=location.hash.slice(1);show(V.includes(h0)?h0:'home');
-if(reduce){ov.style.display=tn.style.display=sk.style.display='none';busy=false}
-else{build();document.body.classList.add('lock');gsap.set(T,{opacity:1});let done=false;
+if(reduce||seen){ov.style.display=tn.style.display=sk.style.display='none';busy=false}
+else{try{sessionStorage.setItem('choco','1')}catch(e){}build();document.body.classList.add('lock');gsap.set(T,{opacity:1});let done=false;
   const end=()=>{if(done)return;done=true;sk.style.display='none';reveal(1);gsap.from(`#${cur} .rv`,{y:50,opacity:0,duration:1,stagger:.1,ease:'power3.out',delay:.9})};
-  const tl=gsap.timeline().fromTo(tn,{opacity:0,scale:.94,filter:'blur(12px)'},{opacity:1,scale:1,filter:'blur(0px)',duration:1.4,ease:'power2.out'}).add(end,'+=.9');
+  const tl=gsap.timeline().fromTo(tn,{opacity:0,scale:.94},{opacity:1,scale:1,duration:.9,ease:'power2.out'}).add(end,'+=.35');
   sk.onclick=()=>{tl.kill();end()}}
 </script>
 </body></html>
