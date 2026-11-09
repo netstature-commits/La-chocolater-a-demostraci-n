@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#20100a">
+<title>La Chocolatería | Café y postres</title>
+<meta name="description" content="Un espacio para disfrutar café, bebidas y algo dulce en La Chocolatería.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:ital,wght@0,500;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+/* ===== COLORES (solo 4): cámbialos aquí ===== */
+:root{--cacao:#20100a;--claro:#3a1d12;--crema:#f4e6d0;--car:#d9823b;--serif:'Fraunces',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--cacao);color:var(--crema);font:400 1rem/1.65 var(--sans);overflow-x:hidden}
+body.lock{overflow:hidden}
+img{display:block;max-width:100%}
+h1,h2,h3{font-family:var(--serif);line-height:1.05}
+h1{font-size:clamp(2.5rem,5.6vw,5.4rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:clamp(2rem,4.4vw,3.8rem);font-weight:700;letter-spacing:-.01em}
+em{color:var(--car);font-weight:500}
+.view{display:none}.view.on{display:block}
+.wrap{padding:150px 6vw 90px;max-width:1280px;margin:0 auto}
+.lead{margin:18px 0 50px;max-width:50ch;color:rgba(244,230,208,.78);font-size:1.1rem}
+.k{font:italic 500 1.15rem var(--serif);color:var(--car);margin-bottom:10px}
+footer{padding:40px 6vw 110px;border-top:1px solid rgba(244,230,208,.12);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:rgba(244,230,208,.55);font-size:.9rem}
+
+/* ===== BOTONES GALLETA: galleta completa + etiqueta de chocolate para leer el texto ===== */
+.ck,.cb{position:relative;display:inline-grid;place-items:center;border:0;background:none;cursor:pointer;filter:drop-shadow(0 7px 9px rgba(0,0,0,.55));transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.ck img,.cb img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.ck span,.cb span{position:relative;z-index:1;max-width:84%;padding:.4em .85em;border-radius:30px;background:linear-gradient(#4a2517,#2a140c);color:var(--crema);font:700 .95rem/1.1 var(--sans);text-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 2px 5px rgba(0,0,0,.55)}
+.ck{width:84px;height:84px}.ck span{font-size:.68rem;padding:.35em .7em}
+.cb{width:150px;height:150px}
+.cb:nth-child(odd){transform:rotate(-6deg)}.cb:nth-child(even){transform:rotate(5deg)}
+@media(hover:hover){.ck:hover,.cb:hover{transform:rotate(-10deg) scale(1.12)}}
+.ck:active,.cb:active{transform:scale(.92)}
+.ck.on{transform:scale(1.1)}.ck.on span{background:var(--car);color:#20100a}
+.cr{position:fixed;z-index:1100;border-radius:40%;background:#6b3a22;pointer-events:none}
+.dock{position:fixed;z-index:60;top:8px;right:2.5vw;display:flex;gap:2px}
+
+/* ===== FONDO VIVO ===== */
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(60vw 50vh at 90% 8%,rgba(217,130,59,.16),transparent),radial-gradient(60vw 60vh at 5% 95%,rgba(58,29,18,.9),transparent)}
+body::after{content:"";position:fixed;inset:0;z-index:900;pointer-events:none;opacity:.07;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+#dust{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+#dust svg{position:absolute;bottom:-130px;width:46px;height:120px;fill:none;stroke:var(--crema);stroke-width:3;stroke-linecap:round;opacity:0;transform-origin:50% 100%;animation:steam linear infinite;will-change:transform,opacity}
+@keyframes steam{0%{transform:translate(0,0) scaleX(1);opacity:0}15%{opacity:.2}60%{opacity:.12}100%{transform:translate(30px,-112vh) scaleX(1.6);opacity:0}}
+.wrap{position:relative;z-index:1}
+.dec{position:absolute;right:4vw;top:110px;width:16vw;max-width:240px;filter:drop-shadow(0 14px 18px rgba(0,0,0,.5));pointer-events:none;z-index:0}
+
+/* ===== INTRO / TRANSICIÓN: barra de chocolate que se rompe ===== */
+#ov{position:fixed;inset:0;z-index:1000;display:grid;gap:3px;background:var(--cacao)}
+#ov i{background:var(--claro) url(imagenes/barra.jpg);border-radius:4px;box-shadow:inset 2px 2px 5px rgba(255,255,255,.14),inset -3px -3px 7px rgba(0,0,0,.55)}
+#tn{position:fixed;inset:0;z-index:1001;display:grid;place-items:center;padding:0 5vw;text-align:center;pointer-events:none;font:800 clamp(2.4rem,9vw,8rem)/.95 var(--serif);letter-spacing:-.02em;color:#5a3020;text-shadow:-2px -2px 3px rgba(255,255,255,.3),3px 4px 6px rgba(0,0,0,.8)}
+#sk{position:fixed;right:4vw;bottom:4vh;z-index:1002;background:rgba(32,16,10,.5);border:1px solid rgba(244,230,208,.5);color:var(--crema);padding:8px 20px;border-radius:40px;cursor:pointer;font:500 .9rem var(--sans)}
+
+/* ===== INICIO ===== */
+#hero{height:340vh;position:relative}
+.pin{position:sticky;top:0;height:100vh;overflow:hidden}
+.glow{position:absolute;z-index:0;right:-8vw;top:50%;width:72vw;height:96vh;transform:translateY(-50%);background:radial-gradient(closest-side,rgba(217,130,59,.34),rgba(217,130,59,.1) 55%,transparent);animation:pu 6s ease-in-out infinite alternate}
+@keyframes pu{to{opacity:.55}}
+.hl{position:absolute;z-index:5;left:6vw;top:50%;transform:translateY(-52%);width:min(42vw,580px)}
+.acts{display:flex;gap:4px;margin:18px 0 0 -14px}
+.cap{position:relative;height:1.8rem;margin-top:30px;font:italic 500 1.3rem var(--serif);color:var(--car)}
+.cap span{position:absolute;left:0;opacity:0;transform:translateY(12px);transition:.6s}.cap span.on{opacity:1;transform:none}
+.arch{position:absolute;z-index:3;right:7vw;top:50%;transform:translateY(-50%);height:min(80vh,700px);aspect-ratio:6/7;border-radius:999px 999px 28px 28px;overflow:hidden;background:var(--claro);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 2px rgba(217,130,59,.55),0 0 0 12px var(--cacao),0 0 0 14px rgba(217,130,59,.28)}
+.arch video{width:100%;height:100%;object-fit:cover;object-position:51% 50%}
+.fl{position:absolute;z-index:6;pointer-events:none;filter:drop-shadow(0 14px 18px rgba(0,0,0,.55))}
+.f1{right:3vw;top:10vh;width:15vw;max-width:230px}.f2{right:36vw;bottom:8vh;width:14vw;max-width:210px}
+.f3{right:2vw;bottom:9vh;width:15vw;max-width:230px}.f4{right:37vw;top:12vh;width:13vw;max-width:200px}
+.bar{position:absolute;left:0;bottom:0;height:4px;width:0;background:var(--car);z-index:7}
+
+/* ===== RECORRIDO DEL TREN: atardecer, montañas y estaciones ===== */
+#ruta{height:100vh;overflow:hidden;position:relative;background:linear-gradient(#20100a 0%,#3d1c10 40%,#8a4320 72%,#d9823b 100%)}
+.sun{position:absolute;left:58vw;bottom:30vh;width:22vw;height:22vw;max-width:320px;max-height:320px;border-radius:50%;background:radial-gradient(circle,#ffe2b0 0 38%,#f3a65a 62%,rgba(243,166,90,0) 72%)}
+.hills{position:absolute;bottom:15vh;left:0;height:46vh}
+.h-far{width:150vw;fill:#5e2c17}.h-mid{width:200vw;fill:#33180d}
+.ground{position:absolute;left:0;right:0;bottom:0;height:19vh;background:linear-gradient(#2a140c,#140805)}
+.world{position:absolute;left:0;top:0;height:100%;display:flex}
+.st{width:100vw;height:100%;flex:none;position:relative;display:flex;align-items:center;justify-content:center;gap:4vw;padding:15vh 6vw 25vh}
+.sign{position:absolute;top:0;left:26vw;z-index:4;padding:48px 28px 20px;background:linear-gradient(#3a1d12,#2a140c);border:2px solid var(--car);border-top:0;border-radius:0 0 18px 18px;font:700 clamp(1.5rem,2.8vw,2.6rem)/1.05 var(--serif);box-shadow:0 14px 30px rgba(0,0,0,.5);transform-origin:50% 0;animation:sw 4s ease-in-out infinite alternate}
+.sign small{display:block;margin-bottom:4px;font:italic 500 .95rem var(--serif);color:var(--car)}
+@keyframes sw{from{transform:rotate(-1.6deg)}to{transform:rotate(1.6deg)}}
+.rail{position:absolute;left:0;right:0;bottom:17vh;height:10px;border-radius:5px;background:linear-gradient(#7a4426,#3a1d12)}
+.rail::before{content:"";position:absolute;left:0;right:0;top:12px;height:14px;background:repeating-linear-gradient(90deg,#4a2a18 0 14px,transparent 14px 48px)}
+.train{position:absolute;left:5vw;bottom:calc(17vh + 4px);width:min(36vw,480px);z-index:5;pointer-events:none;filter:drop-shadow(0 10px 12px rgba(0,0,0,.6));animation:rt .26s ease-in-out infinite alternate}@keyframes rt{to{transform:translateY(-2.5px)}}
+.mini{display:flex;gap:18px;align-items:flex-start}
+.mini figure{position:relative;width:clamp(130px,15.5vw,230px)}.mini figure:nth-child(even){margin-top:56px}
+.mini img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:18px;box-shadow:0 16px 30px rgba(0,0,0,.55)}
+.tag{position:absolute;left:8px;right:8px;bottom:8px;padding:8px 10px;border-radius:12px;background:rgba(32,16,10,.84);font:700 .8rem/1.2 var(--sans)}
+.tag b{display:block;color:var(--car);font:700 1rem var(--serif)}
+.fig{position:relative}.fig>img{width:100%;height:100%;object-fit:cover;box-shadow:0 24px 50px rgba(0,0,0,.55)}
+.wide{width:min(56vw,860px);aspect-ratio:16/10}.wide>img{border-radius:22px}
+.wide::after{content:"";position:absolute;inset:0;border-radius:22px;background:linear-gradient(transparent 55%,rgba(20,8,4,.78));pointer-events:none}
+.marc{height:54vh;aspect-ratio:4/5}.marc>img{border-radius:999px 999px 24px 24px}
+.cp{position:absolute;z-index:2;left:24px;bottom:20px;font:italic 600 clamp(1.1rem,1.9vw,1.7rem) var(--serif);color:var(--crema);text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.fig .cb{position:absolute;z-index:8;right:-34px;bottom:-44px}
+.st>.cb{position:absolute;z-index:8;right:4vw;bottom:21vh}
+
+/* ===== MENÚ / LOCAL / RESERVAS ===== */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px}
+.card{background:var(--claro);border-radius:22px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.card .im{overflow:hidden}.card img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.card:hover img{transform:scale(1.08)}
+.card .t{padding:22px 24px 26px}.card h3{font-size:1.4rem;font-weight:700}.card p{margin-top:6px;font-size:.93rem;color:rgba(244,230,208,.72)}
+.pr{display:block;margin-top:14px;font:700 1.35rem var(--serif);color:var(--car)}
+.lgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.lgrid img{width:100%;height:100%;object-fit:cover;border-radius:22px;box-shadow:0 20px 44px rgba(0,0,0,.5)}
+.lgrid .a{grid-column:1/8;grid-row:1/3;min-height:60vh}.lgrid .b,.lgrid .c{grid-column:8/13;aspect-ratio:4/3}
+.hor{display:flex;gap:6vw;flex-wrap:wrap;margin-top:56px}.hor b{display:block;font:700 1.25rem var(--serif);color:var(--car)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:start}
+form{display:grid;gap:16px;margin-top:10px}
+input,select{width:100%;padding:17px 20px;border-radius:14px;border:1px solid rgba(244,230,208,.25);background:var(--claro);color:var(--crema);font:inherit}
+select option{color:#222}
+.info{background:var(--claro);border-radius:22px;padding:36px}.info b{display:block;font:700 1.3rem var(--serif);color:var(--car);margin-top:22px}.info b:first-child{margin-top:0}
+
+@media(max-width:860px){
+  .dock{top:auto;bottom:calc(6px + env(safe-area-inset-bottom));right:50%;transform:translateX(50%);gap:0;padding:2px 8px;border-radius:70px;background:rgba(32,16,10,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  .ck{width:68px;height:68px}.ck span{font-size:.66rem}
+  .cb{width:112px;height:112px}.cb span{font-size:.78rem}
+  .hl{position:relative;left:auto;right:auto;top:auto;bottom:auto;transform:none;width:auto}h1{font-size:clamp(1.75rem,8vw,2.2rem)}.cap{margin-top:12px;font-size:1.1rem}.acts{margin:6px 0 0 -8px}.acts .cb{width:100px;height:100px}.acts .cb span{font-size:.7rem}
+  .glow{right:auto;left:-20vw;width:140vw}
+  #hero{height:210vh;height:210svh}.pin{height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:64px 6vw calc(86px + env(safe-area-inset-bottom))}.arch{position:relative;right:auto;left:auto;top:auto;transform:none;flex:1 1 0;min-height:110px;height:auto;aspect-ratio:auto;width:min(76vw,330px);margin:0 auto 14px;border-radius:999px 999px 22px 22px;box-shadow:0 18px 40px rgba(0,0,0,.55),0 0 0 2px rgba(217,130,59,.55),0 0 0 8px var(--cacao)}
+  .f1{width:24vw;right:2vw;top:12svh}.f2{width:22vw;right:auto;left:2vw;top:30svh;bottom:auto}.f3{width:24vw;right:2vw;bottom:auto;top:34svh}.f4{display:none}
+  #ruta{height:100vh;height:100svh}.st{flex-direction:column;gap:12px;padding:15svh 6vw 33svh}
+  .sign{left:auto;right:6vw;padding:34px 16px 10px;font-size:1.2rem}
+  .mini{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:min(80vw,40svh)}.mini figure{width:auto}.mini figure:nth-child(even){margin-top:0}.mini figure:nth-child(n+3){display:none}.tag{font-size:.68rem;padding:5px 7px}.tag b{font-size:.86rem}
+  .wide{width:84vw}.marc{height:30svh}.fig .cb{width:92px;height:92px;right:-10px;bottom:-34px}.st>.cb{position:relative;right:auto;bottom:auto;width:92px;height:92px}
+  .train{width:46vw;bottom:calc(20svh + 4px)}.rail{bottom:20svh}.ground{height:20svh}.st::before{left:3vw;bottom:calc(20svh + 10px);height:26svh}.st::after{left:calc(3vw - 30px);bottom:calc(20svh + 10px + 26svh - 24px)}.map{bottom:calc(88px + env(safe-area-inset-bottom))}
+  .two{grid-template-columns:1fr}.lgrid .a,.lgrid .b,.lgrid .c{grid-column:1/-1;grid-row:auto;min-height:0;aspect-ratio:4/3}
+  .wrap{padding-top:110px}.dec{width:24vw;top:80px}
+}
+
+.dec{animation:dd 6s ease-in-out infinite alternate}@keyframes dd{to{transform:translateY(8%) rotate(14deg)}}
+button{-webkit-tap-highlight-color:transparent}
+@media(pointer:coarse){body::after{display:none}.fl{filter:none}}
+
+
+/* ===== LOGO: nombre con glaseado de chocolate que gotea ===== */
+.logo{position:fixed;z-index:60;top:14px;left:2.5vw;display:block;width:clamp(190px,17vw,250px);text-decoration:none;color:var(--crema);transition:transform .4s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 6px 10px rgba(0,0,0,.55))}
+.logo .la{position:absolute;left:-2px;top:-10px;font:italic 600 1.15rem var(--serif);color:var(--car);transform:rotate(-8deg)}
+.logo .nm{display:block;font:800 clamp(1.7rem,2.2vw,2.3rem)/1 var(--serif);letter-spacing:-.02em;padding-left:.35em;white-space:nowrap}
+.logo .gl{display:block;width:100%;height:auto;fill:var(--car);margin-top:3px;overflow:visible}
+.logo .dp{transform-box:fill-box;animation:dro 4.5s ease-in infinite}
+@keyframes dro{0%,55%{transform:translateY(-6px);opacity:0}62%{opacity:1}100%{transform:translateY(26px);opacity:0}}
+@media(hover:hover){.logo:hover{transform:rotate(-1.5deg) scale(1.04)}}
+/* ===== FONDO: patrón de cacao, tazas y molinillos + chocolate que gotea ===== */
+body::before{background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='150' fill='none' stroke='%23d9823b' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' opacity='.1'><g transform='translate(14 18) scale(.5)'><path d='M10 28h36v8a18 18 0 0 1-36 0z'/><path d='M46 31h4a6 6 0 0 1 0 12h-6'/><path d='M20 22c-3-4 3-6 0-10M30 22c-3-4 3-6 0-10'/></g><g transform='translate(96 70) rotate(30) scale(.5)'><ellipse cx='32' cy='32' rx='14' ry='22'/><path d='M22 18c8 6 8 14 12 20'/></g><g transform='translate(60 100) scale(.4)'><ellipse cx='32' cy='38' rx='13' ry='4'/><ellipse cx='32' cy='46' rx='10' ry='3.5'/><path d='M32 4v50'/></g></svg>"),radial-gradient(60vw 50vh at 90% 8%,rgba(217,130,59,.16),transparent),radial-gradient(60vw 60vh at 5% 95%,rgba(58,29,18,.9),transparent)}
+.hdrip{position:absolute;top:0;left:0;width:100%;height:clamp(46px,8vh,70px);z-index:2;fill:var(--claro);stroke:rgba(217,130,59,.55);stroke-width:1.5;pointer-events:none}
+.doo{position:absolute;z-index:1;width:110px;height:110px;fill:none;stroke:var(--car);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.4;pointer-events:none}
+.d1{left:46vw;top:17vh;transform:rotate(18deg)}.d2{left:51vw;bottom:11vh;width:130px;height:130px;transform:rotate(-12deg)}
+.hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:99px;background:rgba(32,16,10,.74);border:1px solid rgba(217,130,59,.5);font:500 .78rem var(--sans);white-space:nowrap;transition:opacity .4s}
+.hint svg{width:14px;height:14px;fill:none;stroke:var(--car);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:bn 1.2s ease-in-out infinite}
+@keyframes bn{50%{transform:translateY(3px)}}.hint.x{opacity:0;pointer-events:none}
+/* ===== MENÚ / LOCAL / RESERVAS con más carácter ===== */
+.wrap h2::after{content:"";display:block;width:120px;height:18px;margin-top:10px;background:linear-gradient(var(--car),var(--car)) 0 0/100% 5px no-repeat,radial-gradient(ellipse 4px 12px at 10px 6px,var(--car) 98%,transparent) 0 0/34px 100%,radial-gradient(ellipse 3.5px 8px at 8px 6px,var(--car) 98%,transparent) 14px 0/52px 100%}
+.card .no{display:block;font:italic 600 1rem var(--serif);color:var(--car);margin-bottom:4px}
+.pr{display:inline-block;padding:3px 14px;border-radius:99px;background:var(--car);color:#20100a;font-size:1.15rem}
+.lgrid img{border:7px solid var(--crema);border-bottom-width:24px;border-radius:6px}
+.lgrid .a{transform:rotate(-1.4deg)}.lgrid .b{transform:rotate(1.6deg)}.lgrid .c{transform:rotate(-1deg)}
+.info{position:relative;border:2px dashed rgba(217,130,59,.5)}
+.info::before,.info::after{content:"";position:absolute;top:50%;width:26px;height:26px;margin-top:-13px;border-radius:50%;background:var(--cacao)}
+.info::before{left:-14px}.info::after{right:-14px}
+input:focus,select:focus{outline:2px solid var(--car);border-color:var(--car)}
+footer{padding:22px 6vw 26px;align-items:center}footer a{color:inherit}.wrap{padding-bottom:36px}
+.fb{font:800 1.5rem var(--serif);color:var(--crema)}
+@media(prefers-reduced-motion:reduce){.dp,.hint svg,#dust svg,.dec,.train{animation:none}}
+@media(max-width:860px){
+ .logo{top:14px;left:14px;width:172px}.logo .nm{font-size:1.5rem}.logo .la{font-size:1rem;top:-9px}
+ .doo{display:none}
+ .grid{grid-template-columns:1fr;gap:14px}
+ .card{display:grid;grid-template-columns:38% 1fr;border-radius:20px}
+ .card .im{height:100%}.card img{aspect-ratio:auto;height:100%;min-height:150px}
+ .card .t{padding:14px 16px;display:flex;flex-direction:column;justify-content:center}
+ .card h3{font-size:1.15rem}.card p{font-size:.85rem}.pr{margin-top:10px;font-size:1.05rem;align-self:flex-start}
+ footer{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+}
+
+/* ===== RESERVAS ===== */
+.rsv,#rsv{gap:18px}
+.fld{display:grid;gap:7px;font:500 .9rem var(--sans);color:rgba(244,230,208,.8)}
+.fld input,.fld select{font:400 1rem var(--sans)}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.step{display:inline-flex;align-items:center;gap:10px;justify-self:start;background:var(--claro);border:1px solid rgba(244,230,208,.25);border-radius:14px;padding:6px}
+.step button{width:46px;height:46px;border:0;border-radius:10px;background:var(--cacao);color:var(--crema);font:700 1.4rem var(--sans);cursor:pointer;transition:transform .2s cubic-bezier(.3,1.6,.5,1)}.step button:active{transform:scale(.86)}
+.step output{min-width:48px;text-align:center;font:700 1.5rem var(--serif);color:var(--crema)}
+.bmp{animation:bm .3s}@keyframes bm{50%{transform:scale(1.4)}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{min-height:44px;padding:0 16px;border-radius:30px;border:1px solid rgba(244,230,208,.3);background:var(--claro);color:var(--crema);font:500 .92rem var(--sans);cursor:pointer;transition:background .2s,transform .2s}
+.chips button:active{transform:scale(.95)}.chips button.on{background:var(--car);border-color:var(--car);color:#20100a;font-weight:700}
+.sum{padding:14px 16px;border-radius:14px;background:rgba(244,230,208,.07);border-left:3px solid var(--car);font-size:.95rem;min-height:3.4em}
+input.bad,select.bad{border-color:#e8604a;outline:2px solid #e8604a}
+.info a{color:var(--crema);font-size:1.2rem}
+/* ===== TREN: lámparas de estación y mapa de ruta ===== */
+.st::before{content:"";position:absolute;left:4vw;bottom:calc(17vh + 10px);width:4px;height:30vh;background:linear-gradient(#6a4328,#2a140c);border-radius:2px}
+.st::after{content:"";position:absolute;left:calc(4vw - 30px);bottom:calc(17vh + 10px + 30vh - 24px);width:64px;height:64px;border-radius:50%;background:radial-gradient(circle,#ffe2b0 0 18%,rgba(243,166,90,.5) 34%,transparent 68%);pointer-events:none}
+.map{position:absolute;z-index:6;left:50%;bottom:calc(17vh - 52px);transform:translateX(-50%);width:min(60vw,280px);height:16px;pointer-events:none}
+.map::before{content:"";position:absolute;left:0;right:0;top:7px;height:2px;background:rgba(244,230,208,.25)}
+.map i{position:absolute;top:2px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--cacao);border:2px solid rgba(244,230,208,.5);transition:background .3s,transform .3s}
+.map i:nth-of-type(1){left:0}.map i:nth-of-type(2){left:50%}.map i:nth-of-type(3){left:100%}
+.map i.on{background:var(--car);border-color:var(--car);transform:scale(1.25)}
+.map b{position:absolute;top:3px;left:0;width:10px;height:10px;margin-left:-5px;border-radius:2px;background:var(--crema);box-shadow:0 0 8px rgba(244,230,208,.6)}
+/* ===== 3D y microinteracciones ===== */
+.grid,.lgrid{perspective:900px}
+.card{transition:rotate .25s ease-out}.card:active{scale:.985}
+.pr{transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.lgrid img{transition:transform .4s cubic-bezier(.3,1.4,.5,1)}
+@media(hover:hover){.card:hover .pr{transform:rotate(-4deg) scale(1.08)}.lgrid img:hover{transform:rotate(0) scale(1.03)}}
+@media(pointer:coarse){.ck,.cb,.train{filter:none}.glow{animation:none}}
+
+/* ===== BOTÓN WHATSAPP (galleta flotante) ===== */
+.ck.wa{position:fixed;z-index:61;right:14px;bottom:calc(106px + env(safe-area-inset-bottom));width:76px;height:76px;text-decoration:none;animation:wig 7s ease-in-out infinite}
+.ck.wa span{font-size:.6rem}
+@keyframes wig{0%,86%,100%{rotate:0deg}90%{rotate:-12deg}94%{rotate:10deg}97%{rotate:-5deg}}
+@media(min-width:861px){.ck.wa{right:26px;bottom:26px;width:92px;height:92px}.ck.wa span{font-size:.72rem}}
+@media(prefers-reduced-motion:reduce){.ck.wa{animation:none}}
+
+/* ===== AJUSTES DE CAFETERÍA Y RENDIMIENTO MÓVIL ===== */
+.hero-note{max-width:36ch;margin-top:10px;color:rgba(244,230,208,.76);font-size:.96rem;line-height:1.5}
+.menu-footnote{margin-top:22px;color:rgba(244,230,208,.55);font-size:.8rem}
+.hor{align-items:flex-start}.hor p{flex:1 1 190px;max-width:34ch;color:rgba(244,230,208,.75)}
+.ck.wa{position:fixed;z-index:95;right:17px;bottom:24px;width:86px;height:86px;text-decoration:none}
+.ck.wa .wa-mark{position:absolute;z-index:3;left:50%;top:50%;width:39px;height:39px;max-width:none;padding:0;display:grid;place-items:center;border-radius:50%;background:#20c763;box-shadow:0 3px 9px rgba(0,0,0,.4);transform:translate(-50%,-50%)}
+.ck.wa .wa-mark svg{display:block;width:27px;height:27px;fill:#fff}
+.ck.wa:hover{transform:translateY(-3px) rotate(-5deg) scale(1.06)}
+@media(max-width:860px){
+  body::after{display:none}#dust{display:none}
+  .dock{z-index:90}
+  .hl{width:100%;max-width:540px}.hl h1{font-size:clamp(1.9rem,8.5vw,2.55rem);line-height:1.04}
+  .hl .k{font-size:.92rem;margin-bottom:7px}.cap{height:1.45rem;margin-top:12px;font-size:1rem}
+  .hero-note{font-size:.87rem;margin-top:8px}.acts{gap:0;margin:5px 0 0 -8px}
+  .acts .cb{width:94px;height:94px}.acts .cb span{font-size:.65rem}
+  .arch{width:min(72vw,330px);min-height:120px}
+  /* Un único timeline mueve el mundo entero. Se apagan solo adornos secundarios. */
+  .world,.h-far,.h-mid,.sun{will-change:transform}
+  .train{filter:none;animation:none;will-change:auto}
+  .sign{animation:none;box-shadow:0 8px 18px rgba(0,0,0,.35)}
+  .fl{filter:none}
+  .card{transition:none}.card img{transition:none}
+  .card h3{font-size:1.03rem;line-height:1.14}.card p{font-size:.79rem;line-height:1.4}
+  .card .t{padding:13px}.pr{align-self:flex-start;margin-top:10px;font-size:.96rem}
+  .ck.wa{right:10px;bottom:calc(84px + env(safe-area-inset-bottom));width:68px;height:68px}
+  .ck.wa .wa-mark{width:33px;height:33px}.ck.wa .wa-mark svg{width:23px;height:23px}
+  .wrap{padding:108px 5vw 38px}.lead{font-size:1rem;margin:13px 0 28px}
+  .two{grid-template-columns:1fr;gap:26px}.hor{gap:15px;margin-top:30px}.hor p{flex:1 1 100%;max-width:none;font-size:.9rem}
+}
+@media(max-width:390px){
+  .dock .ck{width:56px;height:58px}.dock .ck span{font-size:.56rem}
+  .logo{width:148px}.hl h1{font-size:1.86rem}.acts .cb{width:86px;height:86px}
+  .card{grid-template-columns:34% minmax(0,1fr)}.card .t{padding:10px}.card h3{font-size:.96rem}.card p{font-size:.74rem}
+}
+@media(prefers-reduced-motion:reduce){.ck.wa,.train,.sign,.dec{animation:none!important}}
+
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="d-bean" viewBox="0 0 64 64"><ellipse cx="32" cy="32" rx="14" ry="22" transform="rotate(35 32 32)"/><path d="M20 20c8 6 8 14 12 20s8 6 12 6"/></symbol>
+<symbol id="d-mol" viewBox="0 0 64 64"><ellipse cx="32" cy="8" rx="5" ry="4"/><path d="M32 12v44"/><ellipse cx="32" cy="38" rx="13" ry="4"/><ellipse cx="32" cy="46" rx="10" ry="3.5"/><ellipse cx="32" cy="53" rx="7" ry="3"/></symbol>
+</defs></svg>
+<div id="ov"></div><div id="tn">La<br>Chocolatería</div><button id="sk">Saltar</button>
+<nav class="dock">
+  <button class="ck on" data-go="home"><img src="imagenes/galleta.png" alt=""><span>Inicio</span></button><button class="ck" data-go="menu"><img src="imagenes/galleta.png" alt=""><span>Menú</span></button>
+  <button class="ck" data-go="local"><img src="imagenes/galleta.png" alt=""><span>El local</span></button><button class="ck" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservas</span></button>
+</nav>
+<a class="logo" href="#home" aria-label="La Chocolatería, inicio"><i class="la">La</i><b class="nm">Chocolatería</b><svg class="gl" viewBox="0 0 200 34" aria-hidden="true"><rect width="200" height="9" rx="4.5"/><path d="M26 5v16a4.5 4.5 0 0 0 9 0V5zM88 5v10a4.5 4.5 0 0 0 9 0V5zM150 5v21a4.5 4.5 0 0 0 9 0V5zM182 5v8a3.5 3.5 0 0 0 7 0V5z"/><circle class="dp" cx="154.5" cy="29" r="3.2"/></svg></a>
+<div id="dust"></div>
+<a class="ck wa" href="https://wa.me/59175506397?text=Hola%2C%20quiero%20hacer%20una%20consulta%20en%20La%20Chocolater%C3%ADa" target="_blank" rel="noopener" aria-label="Abrir WhatsApp"><img src="imagenes/galleta.png" alt=""><span class="wa-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 2.67C8.71 2.67 2.75 8.54 2.75 15.76c0 2.3.61 4.55 1.77 6.53l-1.85 7.04 7.25-1.89a13.55 13.55 0 0 0 6.12 1.46h.01c7.33 0 13.29-5.87 13.29-13.09 0-3.5-1.38-6.79-3.89-9.26a13.3 13.3 0 0 0-9.41-3.88zm0 23.98h-.01a11.1 11.1 0 0 1-5.65-1.54l-.4-.24-4.3 1.12 1.15-4.15-.26-.42a10.86 10.86 0 0 1-1.67-5.66c0-6 5-10.88 11.14-10.88 2.97 0 5.76 1.14 7.86 3.22a10.7 10.7 0 0 1 3.26 7.66c0 6-5 10.89-11.12 10.89zm6.11-8.15c-.33-.16-1.95-.95-2.25-1.06-.3-.11-.52-.16-.74.16-.22.33-.85 1.06-1.04 1.28-.19.22-.38.25-.71.08-.33-.16-1.4-.5-2.67-1.61-.99-.86-1.66-1.92-1.85-2.25-.19-.33-.02-.5.14-.66.15-.15.33-.38.49-.57.16-.19.22-.33.33-.55.11-.22.05-.41-.03-.57-.08-.16-.74-1.77-1.02-2.42-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.33-1.14 1.11-1.14 2.7s1.17 3.13 1.33 3.35c.16.22 2.3 3.48 5.58 4.88.78.33 1.39.53 1.86.68.78.24 1.49.21 2.05.13.63-.09 1.95-.79 2.23-1.56.27-.77.27-1.43.19-1.56-.08-.13-.3-.22-.63-.38z"/></svg></span></a>
+
+<main>
+<!-- ===== INICIO ===== -->
+<section class="view on" id="home">
+  <div id="hero"><div class="pin">
+    <div class="glow"></div><svg class="hdrip" aria-hidden="true"></svg>
+    <svg class="doo d1" viewBox="0 0 64 64" aria-hidden="true"><use href="#d-bean"/></svg><svg class="doo d2" viewBox="0 0 64 64" aria-hidden="true"><use href="#d-mol"/></svg>
+    <div class="hl">
+      <p class="k rv">CAFÉ · BEBIDAS · POSTRES</p><h1 class="rv">Un café para disfrutar <em>despacio</em></h1>
+      <p class="cap rv"><span class="on">Café recién preparado</span><span>Algo dulce para acompañar</span><span>Un rincón para ti</span></p><p class="hero-note rv">Una pausa para conversar, desconectar y disfrutar el momento.</p>
+      <div class="acts rv"><button class="cb" data-go="menu"><img src="imagenes/galleta.png" alt=""><span>Ver el menú</span></button><button class="cb" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservar mesa</span></button></div>
+    </div>
+    <!-- el video avanza con tu scroll: el chocolate baja hasta llenar la taza -->
+    <div class="arch"><video id="vid" data-src="video-taza.mp4" poster="imagenes/poster.jpg" muted playsinline preload="metadata" disablepictureinpicture></video><div class="hint"><svg viewBox="0 0 14 14"><path d="M7 2v9M3 7l4 4 4-4"/></svg>Desliza para llenar la taza</div></div>
+    <img class="fl f1" src="imagenes/trozo-1.png" alt=""><img class="fl f2" src="imagenes/trozo-2.png" alt="">
+    <img class="fl f3" src="imagenes/trozo-3.png" alt=""><img class="fl f4" src="imagenes/trozo-4.png" alt="">
+    <div class="bar"></div>
+  </div></div>
+  <div id="ruta">
+    <div class="sun"></div>
+    <svg class="hills h-far" viewBox="0 0 1500 400" preserveAspectRatio="none"><path d="M0 400V250C150 170 260 90 420 150S650 260 800 190 1050 60 1220 130 1400 220 1500 170V400Z"/></svg>
+    <svg class="hills h-mid" viewBox="0 0 2000 400" preserveAspectRatio="none"><path d="M0 400V230C200 150 330 250 520 200S800 90 980 170 1250 280 1450 210 1750 110 2000 180V400Z"/></svg>
+    <div class="ground"></div>
+    <div class="world">
+      <div class="rail"></div>
+      <div class="st"><div class="sign"><small>Estación 1</small>Favoritos</div><div class="mini" id="mini"></div><button class="cb" data-go="menu"><img src="imagenes/galleta.png" alt=""><span>Ver el menú</span></button></div>
+      <div class="st"><div class="sign"><small>Estación 2</small>El local</div><div class="fig wide"><img src="imagenes/local-1.jpg" alt="El local"><p class="cp">Un rincón para quedarse</p><button class="cb" data-go="local"><img src="imagenes/galleta.png" alt=""><span>Conocer el local</span></button></div></div>
+      <div class="st"><div class="sign"><small>Última estación</small>Tu mesa</div><div class="fig marc"><img src="imagenes/local-2.jpg" alt="Mesa junto a la ventana"><p class="cp">Con la taza caliente</p><button class="cb" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservar mesa</span></button></div></div>
+    </div>
+    <img class="train" decoding="async" src="imagenes/tren.png" alt=""><div class="map" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
+  </div>
+</section>
+
+<!-- ===== MENÚ ===== -->
+<section class="view" id="menu"><div class="wrap"><img class="dec" src="imagenes/trozo-2.png" alt="">
+  <h2 class="rv">Nuestra <em>carta</em></h2><p class="lead rv">Café, bebidas y algo dulce para acompañar tu visita.</p>
+  <div class="grid" id="grid"></div><p class="menu-footnote">Carta ilustrativa para esta demostración.</p>
+</div></section>
+
+<!-- ===== EL LOCAL ===== -->
+<section class="view" id="local"><div class="wrap"><img class="dec" src="imagenes/trozo-4.png" alt="">
+  <h2 class="rv">Un lugar para hacer una <em>pausa</em></h2><p class="lead rv">Un espacio acogedor para disfrutar un buen café, conversar y compartir algo rico.</p>
+  <div class="lgrid rv"><img class="a" loading="lazy" decoding="async" src="imagenes/local-1.jpg" alt=""><img class="b" loading="lazy" decoding="async" src="imagenes/local-2.jpg" alt=""><img class="c" loading="lazy" decoding="async" src="imagenes/local-3.jpg" alt=""></div>
+  <div class="hor rv"><p><b>El ambiente</b>Un espacio para disfrutar de una buena bebida y compartir algo dulce.</p><p><b>Horarios</b>Consulta los horarios antes de organizar tu visita.</p><p><b>Ubicación</b>Confirma la ubicación directamente con el local.</p></div>
+</div></section>
+
+<!-- ===== RESERVAS ===== -->
+<section class="view" id="reservas"><div class="wrap two"><img class="dec" src="imagenes/trozo-3.png" alt="">
+  <div><h2 class="rv">Reserva <em>tu mesa</em></h2><p class="lead rv">Elige cuándo te gustaría venir y envía tu solicitud. El equipo confirmará la disponibilidad contigo.</p>
+    <form class="rv" id="rsv" novalidate>
+      <label class="fld">Tu nombre<input id="rn" placeholder="Ej. María" autocomplete="name"></label>
+      <label class="fld">Tu celular<input id="rp" type="tel" inputmode="tel" placeholder="Ej. 71234567" autocomplete="tel"></label>
+      <div class="r2"><label class="fld">Fecha<input id="rd" type="date"></label><label class="fld">Hora preferida<input id="rh" type="time"></label></div>
+      <div class="fld"><span>Personas</span><div class="step"><button type="button" id="pm" aria-label="Menos personas">−</button><output id="pc">2</output><button type="button" id="pp" aria-label="Más personas">+</button></div></div>
+      <div class="fld"><span>¿Dónde te sientas?</span><div class="chips" id="rz"><button type="button" class="on" data-v="Sin preferencia">Sin preferencia</button><button type="button" data-v="Junto a la ventana">Junto a la ventana</button><button type="button" data-v="Cerca de la barra">Cerca de la barra</button></div></div>
+      <label class="fld">Nota (opcional)<input id="rt" placeholder="Ej. es un cumpleaños"></label>
+      <div class="sum" id="rs" aria-live="polite"></div>
+      <button class="cb" id="rb" type="submit" style="justify-self:start"><img src="imagenes/galleta.png" alt=""><span>Reservar por WhatsApp</span></button>
+    </form></div>
+  <div class="info rv"><b>¿Tienes alguna consulta?</b><p>Escríbenos para consultar por el menú, los horarios o la ubicación.</p><a href="https://wa.me/59175506397" target="_blank" rel="noopener">Contactar al local</a><b>Reservas</b><p>Envía tu solicitud y el equipo confirmará la disponibilidad.</p></div>
+</div></section>
+</main>
+<footer><span class="fb">La Chocolatería</span><span>© 2026 · Maqueta de demostración</span></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,coarse=matchMedia('(pointer:coarse)').matches;
+gsap.registerPlugin(ScrollTrigger);ScrollTrigger.config({ignoreMobileResize:true});
+
+/* ----- Productos (menú y primera estación) ----- */
+const P=[['Café de la casa','Café recién preparado para disfrutar a cualquier hora.',28,'cafe-1','60%'],
+['Chocolate caliente','Una bebida cremosa para acompañar la pausa.',28,'cafe-2','50%'],
+['Croissant de chocolate','Hojaldre dorado con relleno de chocolate.',22,'cafe-3','52%'],
+['Brownie con helado','Un postre tibio con helado de vainilla.',35,'cafe-4','55%']];
+$('#grid').innerHTML=P.map((p,i)=>`<article class="card rv"><div class="im"><img loading="lazy" decoding="async" src="imagenes/${p[3]}.jpg" style="object-position:${p[4]} 50%" alt="${p[0]}"></div><div class="t"><small class="no">N.º 0${i+1}</small><h3>${p[0]}</h3><p>${p[1]}</p><span class="pr">Bs ${p[2]}</span></div></article>`).join('');
+$('#mini').innerHTML=P.map(p=>`<figure><img src="imagenes/${p[3]}.jpg" style="object-position:${p[4]} 50%" alt="${p[0]}"><figcaption class="tag">${p[0]}<b>Bs ${p[2]}</b></figcaption></figure>`).join('');
+
+/* ----- Barra de chocolate: intro y transición entre pantallas ----- */
+const ov=$('#ov'),tn=$('#tn'),sk=$('#sk');let C,R,T=[],busy=true;
+function build(){C=innerWidth<860?3:6;R=innerWidth<860?6:4;
+  ov.style.gridTemplateColumns=`repeat(${C},1fr)`;ov.style.gridTemplateRows=`repeat(${R},1fr)`;ov.innerHTML='';T=[];
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){const t=document.createElement('i');
+    t.style.backgroundSize=`${C*100}% ${R*100}%`;t.style.backgroundPosition=`${c/(C-1)*100}% ${r/(R-1)*100}%`;ov.appendChild(t);T.push(t)}}
+const stag=a=>({amount:a,from:'center',grid:[C,R]});
+function reveal(k){return gsap.timeline({onComplete:()=>{ov.style.display='none';tn.style.display='none';busy=false;document.body.classList.remove('lock')}})
+  .to(tn,{opacity:0,scale:1.15,duration:.5,overwrite:true},0).to(ov,{backgroundColor:'rgba(32,16,10,0)',duration:.3},0)
+  .to(T,{y:()=>innerHeight*1.15,rotation:()=>gsap.utils.random(-70,70),opacity:0,duration:.9*k,ease:'power2.in',stagger:stag(.6*k)},.1)}
+
+/* ----- Pantallas dentro del mismo index.html ----- */
+const V=['home','menu','local','reservas'];let cur='home';
+function show(n,anim=false){
+  $$('.view').forEach(v=>v.classList.toggle('on',v.id===n));
+  $$('.dock .ck').forEach(b=>b.classList.toggle('on',b.dataset.go===n));
+  cur=n;window.scrollTo({top:0,behavior:'auto'});
+  requestAnimationFrame(()=>ScrollTrigger.refresh());
+  if(anim&&!reduce){
+    const items=$$(`#${n} .rv`);gsap.killTweensOf(items);
+    gsap.fromTo(items,{y:16,autoAlpha:0},{y:0,autoAlpha:1,duration:.42,stagger:.035,ease:'power2.out',clearProps:'transform,opacity,visibility'});
+  }
+}
+function go(n,push=true){
+  if(!V.includes(n))return;
+  if(n===cur){window.scrollTo({top:0,behavior:'smooth'});return}
+  if(busy)return;
+  show(n,true);
+  if(push&&location.hash!==`#${n}`)location.hash=n;
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b)go(b.dataset.go);
+  if(e.target.closest('.logo')){e.preventDefault();go('home')}});
+addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(V.includes(h)&&h!==cur)go(h,false)});
+
+/* ----- Video de la taza: sincronizado con el scroll, sin búsquedas acumuladas ----- */
+const vid=$('#vid'),caps=$$('.cap span'),bar=$('.bar');
+let dur=8,tp=0,cp=0,ci=-1,hx=false;
+const hint=$('.hint'),au={p:0};
+let videoUnlocked=!coarse,videoUnlocking=false,unlockRequested=false;
+let videoSeeking=false,lastSeekAt=0,pendingVideoTime=0,seekFallback=null;
+const loadVideo=()=>{
+  if(!vid.getAttribute('src')&&vid.dataset.src){vid.src=vid.dataset.src;vid.load()}
+};
+const unlockVideo=()=>{
+  unlockRequested=true;loadVideo();
+  if(!coarse||videoUnlocked||videoUnlocking)return;
+  videoUnlocking=true;
+  let playAttempt;
+  try{playAttempt=vid.play()}catch(e){videoUnlocking=false;return}
+  Promise.resolve(playAttempt).then(()=>{
+    vid.pause();videoUnlocked=true;videoUnlocking=false;seekVideo();
+  }).catch(()=>{videoUnlocking=false});
+};
+/* La descarga se inicia algo después de cargar la página. En móvil, el primer
+   gesto del usuario permite preparar el vídeo sin audio para habilitar currentTime. */
+addEventListener('load',()=>setTimeout(loadVideo,1800));
+setTimeout(loadVideo,1800);
+addEventListener('touchstart',unlockVideo,{passive:true});
+addEventListener('pointerdown',unlockVideo,{passive:true});
+vid.addEventListener('loadedmetadata',()=>{
+  if(Number.isFinite(vid.duration)&&vid.duration>0)dur=vid.duration;
+  seekVideo();
+});
+vid.addEventListener('loadeddata',()=>{if(unlockRequested&&!videoUnlocked)unlockVideo();seekVideo()});
+vid.addEventListener('seeked',()=>{videoSeeking=false;clearTimeout(seekFallback)});
+vid.addEventListener('error',()=>{videoSeeking=false;videoUnlocking=false;clearTimeout(seekFallback)});
+function seekVideo(){
+  if(vid.readyState<2||!videoUnlocked||videoSeeking||vid.seeking)return;
+  const target=Math.min(Math.max(pendingVideoTime,0),Math.max(0,dur-.05));
+  if(Math.abs(vid.currentTime-target)<(coarse?.035:.018))return;
+  const now=performance.now();
+  if(coarse&&now-lastSeekAt<95)return;
+  try{
+    videoSeeking=true;lastSeekAt=now;vid.currentTime=target;
+    clearTimeout(seekFallback);seekFallback=setTimeout(()=>{videoSeeking=false},1000);
+  }catch(e){videoSeeking=false}
+}
+if(reduce){au.p=.98;$('#hero').style.height='100vh'}
+else gsap.to(au,{p:.12,duration:3.4,delay:2.4,ease:'power2.inOut'});
+ScrollTrigger.create({trigger:'#hero',start:'top top',end:'bottom bottom',onUpdate:s=>tp=s.progress});
+gsap.ticker.add(()=>{
+  if(cur!=='home')return;
+  const targetProgress=Math.max(au.p,tp);
+  if(Math.abs(targetProgress-cp)>=.0004)cp+=(targetProgress-cp)*(coarse?.22:.1);
+  pendingVideoTime=cp*dur;seekVideo();
+  bar.style.width=cp*100+'%';
+  const index=cp<.34?0:cp<.67?1:2;
+  if(index!==ci){ci=index;caps.forEach((c,j)=>c.classList.toggle('on',j===index))}
+  const visible=cp>.03;
+  if(visible!==hx){hx=visible;hint.classList.toggle('x',visible)}
+});
+
+/* Trozos de chocolate: efectos de ratón en escritorio; quietos en móvil para ahorrar batería. */
+const fl=$$('.fl');
+if(!coarse&&!reduce){
+  fl.forEach((el,i)=>{
+    gsap.to(el,{yPercent:i%2?-7:7,duration:2.8+i*.35,repeat:-1,yoyo:true,ease:'sine.inOut'});
+    gsap.to(el,{rotation:(i%2?-1:1)*55,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom bottom',scrub:true}});
+  });
+  const qx=fl.map(el=>gsap.quickTo(el,'x',{duration:1,ease:'power2.out'}));
+  const qy=fl.map(el=>gsap.quickTo(el,'y',{duration:1,ease:'power2.out'}));
+  addEventListener('pointermove',e=>{
+    if(cur!=='home')return;
+    const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;
+    fl.forEach((el,i)=>{qx[i](x*(i+1)*-22);qy[i](y*(i+1)*-18)});
+  },{passive:true});
+}
+/* 3D en el menú: las tarjetas se inclinan hacia el mouse */
+if(!coarse&&!reduce){let tc=null;addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(tc&&tc!==c){tc.style.rotate='';tc=null}if(!c)return;tc=c;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.rotate=`${-y} ${x} 0 ${Math.hypot(x,y)*10}deg`},{passive:true})}
+
+/* ----- Recorrido: el scroll vertical mueve el tren por las tres estaciones ----- */
+const mapb=$('.map b'),mapi=$$('.map i'),w=$('.world'),ruta=$('#ruta');
+function mp(p){if(mapb)mapb.style.left=p*100+'%';mapi.forEach((e,j)=>e.classList.toggle('on',p>=j/2-.01))}
+let trainTimeline=null;
+function setupTrainJourney(){
+  if(trainTimeline){trainTimeline.scrollTrigger?.kill();trainTimeline.kill();trainTimeline=null}
+  gsap.set(w,{x:0});
+  if(reduce){ruta.style.overflowX='auto';ruta.style.overflowY='hidden';return}
+  ruta.style.overflow='hidden';
+  const distance=()=>Math.max(0,w.scrollWidth-innerWidth);
+  trainTimeline=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{
+    trigger:ruta,start:'top top',end:()=>`+=${Math.round(innerHeight*(coarse?2.05:2.5))}`,
+    pin:true,scrub:coarse?.32:.6,anticipatePin:1,invalidateOnRefresh:true,
+    onUpdate:self=>mp(self.progress)
+  }})
+  .to(w,{x:()=>-distance(),duration:1},0)
+  .to('.h-far',{x:()=>-distance()*.18,duration:1},0)
+  .to('.h-mid',{x:()=>-distance()*.38,duration:1},0)
+  .to('.sun',{x:()=>-distance()*.05,duration:1},0);
+}
+setupTrainJourney();
+let trainResizeTimer;
+addEventListener('resize',()=>{
+  clearTimeout(trainResizeTimer);
+  trainResizeTimer=setTimeout(()=>{setupTrainJourney();ScrollTrigger.refresh()},180);
+});
+
+/* ----- Fondo vivo: polvo de cacao, palabra gigante, adornos y migas de galleta ----- */
+if(!reduce){
+  const d=$('#dust'),W='<svg viewBox="0 0 46 120" aria-hidden="true"><path d="M20 118C4 96 36 80 22 58S34 18 24 2"/></svg>';
+  d.innerHTML=W.repeat(coarse?4:7); /* vapor de chocolate caliente que sube */
+  [...d.children].forEach(e=>{e.style.cssText=`left:${gsap.utils.random(2,96)}%;animation-duration:${gsap.utils.random(14,26)}s;animation-delay:-${gsap.utils.random(0,24)}s`});
+  document.addEventListener('click',e=>{if(coarse)return;const b=e.target.closest('.cb,.ck');if(!b)return;const r=b.getBoundingClientRect();
+    for(let i=0;i<8;i++){const c=document.createElement('i'),z=gsap.utils.random(4,9);c.className='cr';
+      c.style.cssText=`left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;width:${z}px;height:${z}px`;document.body.appendChild(c);
+      gsap.to(c,{x:gsap.utils.random(-70,70),y:gsap.utils.random(-60,80),rotation:gsap.utils.random(-180,180),opacity:0,duration:.8,ease:'power2.out',onComplete:()=>c.remove()})}})}
+
+/* ----- Chocolate que gotea (cabecera del inicio y pie de página) ----- */
+function dripD(w,b,n,a,z){let d=`M0 0H${w}V${b}`,r=Math.random,g=w/n;for(let i=0;i<n;i++){const dw=10+r()*12,y=b+a+r()*(z-a),cx=w-g*(i+.5)+(r()-.5)*g*.5;d+=`H${cx+dw/2}V${y-dw/2}A${dw/2} ${dw/2} 0 0 1 ${cx-dw/2} ${y-dw/2}V${b}`}return d+'H0Z'}
+function mkDrip(el,h,b,a,z){const w=innerWidth;el.setAttribute('viewBox',`0 0 ${w} ${h}`);el.setAttribute('preserveAspectRatio','none');el.innerHTML=`<path d="${dripD(w,b,Math.max(6,Math.round(w/62)),a,z)}"/>`}
+mkDrip($('.hdrip'),70,14,12,44);
+/* ----- Reserva: valida y confirma ----- */
+const WA='59175506397',DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const rd=$('#rd'),rh=$('#rh'),pc=$('#pc'),rs=$('#rs'),rb=$('#rb span');let np=2,zona='Sin preferencia';
+const hoy=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const fecha=()=>{const [y,m,d]=rd.value.split('-').map(Number);return `${DIAS[new Date(y,m-1,d).getDay()]} ${d} de ${MES[m-1]}`};
+function horas(){}
+function resumen(){rs.textContent=rd.value&&rh.value?`${np} ${np>1?'personas':'persona'} · ${fecha()} · ${rh.value} · ${zona}`:'Elige fecha y hora para ver el resumen de tu reserva.'}
+rd.min=hoy();horas();resumen();rd.onchange=()=>{horas();resumen()};rh.onchange=resumen;
+const bmp=()=>{pc.classList.remove('bmp');void pc.offsetWidth;pc.classList.add('bmp')};
+$('#pm').onclick=()=>{np=Math.max(1,np-1);pc.textContent=np;bmp();resumen()};$('#pp').onclick=()=>{np=Math.min(12,np+1);pc.textContent=np;bmp();resumen()};
+$('#rz').onclick=e=>{const b=e.target.closest('button');if(!b)return;$$('#rz button').forEach(x=>x.classList.toggle('on',x===b));zona=b.dataset.v;resumen()};
+$('#rsv').addEventListener('input',e=>e.target.classList.remove('bad'));
+$('#rsv').onsubmit=e=>{e.preventDefault();const n=$('#rn'),p=$('#rp'),bad=[[n,n.value.trim().length<2],[p,p.value.replace(/\D/g,'').length<7],[rd,!rd.value],[rh,!rh.value]].filter(x=>x[1]).map(x=>x[0]);
+  [n,p,rd,rh].forEach(x=>x.classList.toggle('bad',bad.includes(x)));
+  if(bad.length){bad[0].focus();rs.textContent='Revisa los campos marcados en rojo.';return}
+  const t=$('#rt').value.trim(),msg=`Hola, quiero reservar en La Chocolatería:\n• Nombre: ${n.value.trim()}\n• Celular: ${p.value.trim()}\n• Fecha: ${fecha()}\n• Hora: ${rh.value}\n• Personas: ${np}\n• Mesa: ${zona}`+(t?`\n• Nota: ${t}`:''),u=`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+  if(!window.open(u,'_blank','noopener'))location.href=u;
+  rs.textContent='Se abrió WhatsApp con tu reserva. Envía el mensaje para confirmarla.';rb.textContent='¡Listo!';setTimeout(()=>rb.textContent='Reservar por WhatsApp',3000)}
+/* ----- Arranque: intro con la barra de chocolate (una vez por sesión) ----- */
+let seen=false;try{seen=!!sessionStorage.getItem('choco')}catch(e){}
+const h0=location.hash.slice(1);show(V.includes(h0)?h0:'home');
+if(reduce||seen){ov.style.display=tn.style.display=sk.style.display='none';busy=false}
+else{try{sessionStorage.setItem('choco','1')}catch(e){}build();document.body.classList.add('lock');gsap.set(T,{opacity:1});let done=false;
+  const end=()=>{if(done)return;done=true;sk.style.display='none';reveal(1);gsap.from(`#${cur} .rv`,{y:50,opacity:0,duration:1,stagger:.1,ease:'power3.out',delay:.9})};
+  const tl=gsap.timeline().fromTo(tn,{opacity:0,scale:.94},{opacity:1,scale:1,duration:.9,ease:'power2.out'}).add(end,'+=.35');
+  sk.onclick=()=>{tl.kill();end()}}
+</script>
+</body></html>
