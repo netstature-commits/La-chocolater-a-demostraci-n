@@ -114,7 +114,7 @@ select option{color:#222}
   .cb{width:112px;height:112px}.cb span{font-size:.78rem}
   .hl{position:relative;left:auto;right:auto;top:auto;bottom:auto;transform:none;width:auto}h1{font-size:clamp(1.75rem,8vw,2.2rem)}.cap{margin-top:12px;font-size:1.1rem}.acts{margin:6px 0 0 -8px}.acts .cb{width:100px;height:100px}.acts .cb span{font-size:.7rem}
   .glow{right:auto;left:-20vw;width:140vw}
-  #hero{height:150vh;height:150svh}.pin{height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:64px 6vw calc(86px + env(safe-area-inset-bottom))}.arch{position:relative;right:auto;left:auto;top:auto;transform:none;flex:1 1 0;min-height:110px;height:auto;aspect-ratio:auto;width:min(76vw,330px);margin:0 auto 14px;border-radius:999px 999px 22px 22px;box-shadow:0 18px 40px rgba(0,0,0,.55),0 0 0 2px rgba(217,130,59,.55),0 0 0 8px var(--cacao)}
+  #hero{height:210vh;height:210svh}.pin{height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:64px 6vw calc(86px + env(safe-area-inset-bottom))}.arch{position:relative;right:auto;left:auto;top:auto;transform:none;flex:1 1 0;min-height:110px;height:auto;aspect-ratio:auto;width:min(76vw,330px);margin:0 auto 14px;border-radius:999px 999px 22px 22px;box-shadow:0 18px 40px rgba(0,0,0,.55),0 0 0 2px rgba(217,130,59,.55),0 0 0 8px var(--cacao)}
   .f1{width:24vw;right:2vw;top:12svh}.f2{width:22vw;right:auto;left:2vw;top:30svh;bottom:auto}.f3{width:24vw;right:2vw;bottom:auto;top:34svh}.f4{display:none}
   #ruta{height:100vh;height:100svh}.st{flex-direction:column;gap:12px;padding:15svh 6vw 33svh}
   .sign{left:auto;right:6vw;padding:34px 16px 10px;font-size:1.2rem}
@@ -201,6 +201,13 @@ input.bad,select.bad{border-color:#e8604a;outline:2px solid #e8604a}
 .lgrid img{transition:transform .4s cubic-bezier(.3,1.4,.5,1)}
 @media(hover:hover){.card:hover .pr{transform:rotate(-4deg) scale(1.08)}.lgrid img:hover{transform:rotate(0) scale(1.03)}}
 @media(pointer:coarse){.ck,.cb,.train{filter:none}.glow{animation:none}}
+
+/* ===== BOTÓN WHATSAPP (galleta flotante) ===== */
+.ck.wa{position:fixed;z-index:80;right:14px;bottom:calc(106px + env(safe-area-inset-bottom));width:76px;height:76px;text-decoration:none;animation:wig 7s ease-in-out infinite}
+.ck.wa span{font-size:.6rem}
+@keyframes wig{0%,86%,100%{rotate:0deg}90%{rotate:-12deg}94%{rotate:10deg}97%{rotate:-5deg}}
+@media(min-width:861px){.ck.wa{right:26px;bottom:26px;width:92px;height:92px}.ck.wa span{font-size:.72rem}}
+@media(prefers-reduced-motion:reduce){.ck.wa{animation:none}}
 </style></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -214,6 +221,7 @@ input.bad,select.bad{border-color:#e8604a;outline:2px solid #e8604a}
 </nav>
 <a class="logo" href="#home" aria-label="La Chocolatería, inicio"><i class="la">La</i><b class="nm">Chocolatería</b><svg class="gl" viewBox="0 0 200 34" aria-hidden="true"><rect width="200" height="9" rx="4.5"/><path d="M26 5v16a4.5 4.5 0 0 0 9 0V5zM88 5v10a4.5 4.5 0 0 0 9 0V5zM150 5v21a4.5 4.5 0 0 0 9 0V5zM182 5v8a3.5 3.5 0 0 0 7 0V5z"/><circle class="dp" cx="154.5" cy="29" r="3.2"/></svg></a>
 <div id="dust"></div>
+<a class="ck wa" href="https://wa.me/59175506397?text=Hola%2C%20quiero%20hacer%20una%20consulta%20en%20La%20Chocolater%C3%ADa" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><img src="imagenes/galleta.png" alt=""><span>WhatsApp</span></a>
 
 <main>
 <!-- ===== INICIO ===== -->
@@ -222,12 +230,12 @@ input.bad,select.bad{border-color:#e8604a;outline:2px solid #e8604a}
     <div class="glow"></div><svg class="hdrip" aria-hidden="true"></svg>
     <svg class="doo d1" viewBox="0 0 64 64" aria-hidden="true"><use href="#d-bean"/></svg><svg class="doo d2" viewBox="0 0 64 64" aria-hidden="true"><use href="#d-mol"/></svg>
     <div class="hl">
-      <h1 class="rv">Chocolate que se sirve <em>despacio</em></h1>
-      <p class="cap rv"><span class="on">Cacao molido a mano</span><span>Fundido sin prisa</span><span>Servido para ti</span></p>
+      <h1 class="rv">Un café para disfrutar <em>despacio</em></h1>
+      <p class="cap rv"><span class="on">Café recién preparado</span><span>Algo dulce para acompañar</span><span>Un rincón para ti</span></p>
       <div class="acts rv"><button class="cb" data-go="menu"><img src="imagenes/galleta.png" alt=""><span>Ver el menú</span></button><button class="cb" data-go="reservas"><img src="imagenes/galleta.png" alt=""><span>Reservar mesa</span></button></div>
     </div>
     <!-- el video avanza con tu scroll: el chocolate baja hasta llenar la taza -->
-    <div class="arch"><video id="vid" data-src="video-taza.mp4" poster="imagenes/poster.jpg" muted playsinline preload="auto" disablepictureinpicture></video><div class="hint"><svg viewBox="0 0 14 14"><path d="M7 2v9M3 7l4 4 4-4"/></svg>Desliza para llenar la taza</div></div>
+    <div class="arch"><video id="vid" data-src="video-taza.mp4" poster="imagenes/poster.jpg" muted playsinline webkit-playsinline preload="auto" disablepictureinpicture></video><div class="hint"><svg viewBox="0 0 14 14"><path d="M7 2v9M3 7l4 4 4-4"/></svg>Desliza para llenar la taza</div></div>
     <img class="fl f1" src="imagenes/trozo-1.png" alt=""><img class="fl f2" src="imagenes/trozo-2.png" alt="">
     <img class="fl f3" src="imagenes/trozo-3.png" alt=""><img class="fl f4" src="imagenes/trozo-4.png" alt="">
     <div class="bar"></div>
@@ -249,13 +257,13 @@ input.bad,select.bad{border-color:#e8604a;outline:2px solid #e8604a}
 
 <!-- ===== MENÚ ===== -->
 <section class="view" id="menu"><div class="wrap"><img class="dec" src="imagenes/trozo-2.png" alt="">
-  <h2 class="rv">Nuestro <em>menú</em></h2><p class="lead rv">Todo se prepara al momento, con cacao de verdad.</p>
+  <h2 class="rv">Nuestro <em>menú</em></h2><p class="lead rv">Cafés, bebidas y postres para disfrutar a tu ritmo.</p>
   <div class="grid" id="grid"></div>
 </div></section>
 
 <!-- ===== EL LOCAL ===== -->
 <section class="view" id="local"><div class="wrap"><img class="dec" src="imagenes/trozo-4.png" alt="">
-  <h2 class="rv">Nuestro <em>local</em></h2><p class="lead rv">Madera oscura, cobre y una barra abierta. Un rincón para quedarse la tarde entera.</p>
+  <h2 class="rv">Nuestro <em>local</em></h2><p class="lead rv">Un espacio acogedor para disfrutar un buen café, compartir algo dulce y quedarse un rato más.</p>
   <div class="lgrid rv"><img class="a" loading="lazy" decoding="async" src="imagenes/local-1.jpg" alt=""><img class="b" loading="lazy" decoding="async" src="imagenes/local-2.jpg" alt=""><img class="c" loading="lazy" decoding="async" src="imagenes/local-3.jpg" alt=""></div>
   <div class="hor rv"><p><b>Lunes a sábado</b>8:00 a 21:00</p><p><b>Domingo</b>9:00 a 19:00</p><p><b>Dirección</b>Av. Arce 2345, Sopocachi, La Paz</p></div>
 </div></section>
@@ -276,7 +284,7 @@ input.bad,select.bad{border-color:#e8604a;outline:2px solid #e8604a}
   <div class="info rv"><b>WhatsApp</b><a href="https://wa.me/59175506397" target="_blank" rel="noopener">75506397</a><b>Dirección</b>Av. Arce 2345, Sopocachi, La Paz<b>Horarios</b>Lunes a sábado, 8:00 a 21:00<br>Domingo, 9:00 a 19:00<b>Redes</b>@lachocolateria.bo</div>
 </div></section>
 </main>
-<footer><span class="fb">La Chocolatería</span><span><a href="https://wa.me/59175506397" target="_blank" rel="noopener">WhatsApp 75506397</a> · © 2026 · Maqueta de demostración</span></footer>
+<footer><span class="fb">La Chocolatería</span><span>© 2026 · Maqueta de demostración</span></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -322,16 +330,142 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b
 addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(V.includes(h)&&h!==cur)go(h,false)});
 
 /* ----- Inicio: video controlado por el scroll ----- */
-const vid=$('#vid'),caps=$$('.cap span'),bar=$('.bar');let dur=8,tp=0,cp=0,ci=-1,sk2=false,hx=false;const hint=$('.hint');if(coarse)hint.lastChild.textContent='Desliza para seguir';const au={p:0};
-vid.addEventListener('seeked',()=>sk2=false);setInterval(()=>sk2=false,400); /* una sola búsqueda a la vez: evita que el video se trabe */
-const lv=()=>{if(!vid.src){vid.src=vid.dataset.src;if(coarse){vid.loop=false;vid.addEventListener('canplay',()=>vid.play().catch(()=>{}),{once:true})}}};addEventListener('load',lv);setTimeout(lv,2500); /* el video baja después de lo importante */
-vid.addEventListener('loadedmetadata',()=>dur=vid.duration);
-if(reduce){au.p=.98;$('#hero').style.height='100vh'}else gsap.to(au,{p:.12,duration:3.4,delay:2.4,ease:'power2.inOut'}); /* arranca solo; el resto lo mueves tú */
-ScrollTrigger.create({trigger:'#hero',start:'top top',end:'bottom bottom',onUpdate:s=>tp=s.progress});
-gsap.ticker.add(()=>{if(cur!=='home'){if(coarse&&!vid.paused)vid.pause();return}
-  if(coarse){cp=dur?vid.currentTime/dur:0}else{const tg=Math.max(au.p,tp);if(Math.abs(tg-cp)<.0004)return;cp+=(tg-cp)*.1}
-  if(!coarse&&!sk2&&vid.readyState>1&&Math.abs(vid.currentTime-cp*dur)>(coarse?.06:.02)){sk2=true;vid.currentTime=Math.min(cp*dur,dur-.05)}
-  bar.style.width=cp*100+'%';const i=cp<.34?0:cp<.67?1:2;if(i!==ci){ci=i;caps.forEach((c,j)=>c.classList.toggle('on',j===i))}const hh=cp>.03;if(hh!==hx){hx=hh;hint.classList.toggle('x',hh)}});
+const vid=$('#vid'),caps=$$('.cap span'),bar=$('.bar');
+let dur=8,tp=0,cp=0,ci=-1,hx=false;
+const hint=$('.hint'),au={p:0};
+
+/* El vídeo se carga de forma diferida para no competir con la carga inicial. */
+let videoUnlocked=!coarse;
+let videoUnlocking=false;
+let unlockRequested=false;
+let videoSeeking=false;
+let lastSeekAt=0;
+let pendingVideoTime=0;
+let seekFallback=null;
+
+const loadVideo=()=>{
+  if(!vid.getAttribute('src')&&vid.dataset.src){
+    vid.src=vid.dataset.src;
+    vid.load();
+  }
+};
+
+/* En móviles, los navegadores pueden exigir una interacción antes de permitir
+   iniciar el vídeo y moverlo por fotogramas. Se mantiene mudo y en línea. */
+const unlockVideo=()=>{
+  unlockRequested=true;
+  loadVideo();
+  if(!coarse||videoUnlocked||videoUnlocking||vid.readyState<2)return;
+
+  videoUnlocking=true;
+  let attempt;
+  try{
+    attempt=vid.play();
+  }catch(e){
+    videoUnlocking=false;
+    return;
+  }
+
+  Promise.resolve(attempt).then(()=>{
+    vid.pause();
+    videoUnlocked=true;
+    videoUnlocking=false;
+    seekVideo();
+  }).catch(()=>{
+    videoUnlocking=false;
+  });
+};
+
+/* touchstart cubre móviles; pointerdown cubre navegadores híbridos.
+   Si el vídeo aún no terminó de cargar, loadeddata vuelve a intentar activarlo. */
+addEventListener('touchstart',unlockVideo,{passive:true});
+addEventListener('pointerdown',unlockVideo,{passive:true});
+addEventListener('load',()=>setTimeout(loadVideo,2500));
+setTimeout(loadVideo,2500);
+
+vid.addEventListener('loadedmetadata',()=>{
+  if(Number.isFinite(vid.duration)&&vid.duration>0)dur=vid.duration;
+  seekVideo();
+});
+vid.addEventListener('loadeddata',()=>{
+  if(unlockRequested&&!videoUnlocked)unlockVideo();
+  seekVideo();
+});
+vid.addEventListener('seeked',()=>{
+  videoSeeking=false;
+  clearTimeout(seekFallback);
+});
+vid.addEventListener('error',()=>{
+  videoSeeking=false;
+  videoUnlocking=false;
+  clearTimeout(seekFallback);
+});
+
+/* Realiza una sola búsqueda a la vez y salta a la posición más reciente.
+   Así el teléfono no acumula cientos de búsquedas al deslizar rápido. */
+function seekVideo(){
+  if(vid.readyState<2||!videoUnlocked||videoSeeking||vid.seeking)return;
+
+  const maxTime=Math.max(0,dur-.05);
+  const target=Math.min(Math.max(pendingVideoTime,0),maxTime);
+  const threshold=coarse?.035:.018;
+  if(Math.abs(vid.currentTime-target)<threshold)return;
+
+  const now=Date.now();
+  if(coarse&&now-lastSeekAt<85)return;
+
+  try{
+    videoSeeking=true;
+    lastSeekAt=now;
+    vid.currentTime=target;
+    clearTimeout(seekFallback);
+    seekFallback=setTimeout(()=>{
+      videoSeeking=false;
+    },900);
+  }catch(e){
+    videoSeeking=false;
+  }
+}
+
+if(reduce){
+  au.p=.98;
+  $('#hero').style.height='100vh';
+}else{
+  gsap.to(au,{p:.12,duration:3.4,delay:2.4,ease:'power2.inOut'});
+}
+
+ScrollTrigger.create({
+  trigger:'#hero',
+  start:'top top',
+  end:'bottom bottom',
+  onUpdate:s=>tp=s.progress
+});
+
+gsap.ticker.add(()=>{
+  if(cur!=='home')return;
+
+  const tg=Math.max(au.p,tp);
+  if(Math.abs(tg-cp)>=.0004){
+    cp+=(tg-cp)*(coarse?.26:.1);
+  }
+
+  /* La búsqueda se intenta en cada frame, incluso si el progreso ya se
+     estabilizó. Esto permite aplicar el último fotograma después de seeked. */
+  pendingVideoTime=cp*dur;
+  seekVideo();
+
+  bar.style.width=cp*100+'%';
+  const i=cp<.34?0:cp<.67?1:2;
+  if(i!==ci){
+    ci=i;
+    caps.forEach((c,j)=>c.classList.toggle('on',j===i));
+  }
+  const hh=cp>.03;
+  if(hh!==hx){
+    hx=hh;
+    hint.classList.toggle('x',hh);
+  }
+});
 
 /* trozos de chocolate: flotan, giran al bajar y siguen al mouse */
 const fl=$$('.fl');
